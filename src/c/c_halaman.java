@@ -16,6 +16,7 @@ import v.v_halaman;
 import Musik.Play_musik;
 import java.util.Random;
 import javax.swing.JOptionPane;
+import v.v_shop;
 
 /**
  *
@@ -25,6 +26,7 @@ public class c_halaman {
 
     v_dalamKandang theVkandang;
     v_halaman theVhalaman;
+    v_shop theVshop;
     Play_musik play;
     m_aset theMaset;
     String username;
@@ -43,6 +45,7 @@ public class c_halaman {
     public c_halaman(String username) throws SQLException {
         this.theVkandang = new v_dalamKandang();
         this.theVhalaman = new v_halaman();
+        this.theVshop = new v_shop();
         this.play = new Play_musik();
         this.theMaset = new m_aset();
         this.username = username;
@@ -353,6 +356,7 @@ public class c_halaman {
             play.StopMusik();
             theVhalaman.setVisible(false);
             shop.getview().setVisible(true);
+            
         }
     }
 
