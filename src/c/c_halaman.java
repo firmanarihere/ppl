@@ -316,6 +316,7 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            theVshop.setRumput(rumput);
             play.StopMusik();
             theVhalaman.setVisible(false);
             profile.getview().setVisible(true);
