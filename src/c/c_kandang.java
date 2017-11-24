@@ -498,7 +498,7 @@ public class c_kandang {
                         } else if (sakit[i] >= 100) {
                             theVkandang.getSakit()[i].setText("Sapi mati");
                             theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getLapar()[i].setVisible(false);
+                            theVkandang.getLapar()[i].setVisible(false); 
                             theVkandang.sapiButton()[i + 1].setVisible(false);
                         } else {
                             theVkandang.getSakit()[i].setVisible(true);
