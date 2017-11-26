@@ -23,22 +23,24 @@ import javax.swing.JOptionPane;
  */
 public class c_halaman {
 
-    v_dalamKandang theVkandang;
-    v_halaman theVhalaman;
-    Play_musik play;
-    m_aset theMaset;
-    String username;
-    String statusKandang;
-    boolean statusButton = true;
-    int rumput;
-    int kandang;
-    int koin;
-    int susu;
-    int syarat = 50;
-    int hargaKandang;
-    int timeCounter = 0;
-    Random angka = new Random();
-    Thread rTime;
+    private v_dalamKandang theVkandang;
+    private v_halaman theVhalaman;
+    private Play_musik play;
+    private m_aset theMaset;
+    private String username;
+    private String statusKandang;
+    private boolean statusButton = true;
+    private int suntikan;
+    private int susu;
+    private int obat;
+    private int nutrisi;
+    private int kandang;
+    private int koin;
+    private int syarat;
+    private int hargaKandang;
+    private int timeCounter = 0;
+    private Random angka = new Random();
+    private Thread rTime;
 
     public c_halaman(String username) throws SQLException {
         this.theVkandang = new v_dalamKandang();
@@ -53,20 +55,18 @@ public class c_halaman {
         play.playHome();
 
         theVhalaman.buttonProfile().setVisible(false);
-        theVhalaman.buttonSetting().setVisible(false);
+        theVhalaman.buttonInventori().setVisible(false);
         theVhalaman.buttonHelp().setVisible(false);
         theVhalaman.buttonAbout().setVisible(false);
         theVhalaman.buttonLogout().setVisible(false);
 
         koin = theVhalaman.setTeksKoin(theMaset.getJumlahKoin(username));
-        rumput = theVhalaman.setTeksRumput(theMaset.getJumlahRumput(username));
+        theVhalaman.setTeksRumput(theMaset.getJumlahRumput(username));
+        theVhalaman.setTeksSapi(theMaset.getJumlahSapi(username) + "");
         kandang = theMaset.getJumlahKandang(theMaset.cekIdPlayer(username));
         susu = theMaset.getJumlahSusu(username);
-        theVhalaman.setTeksSapi(theMaset.getJumlahSapi(username) + "");
 
         theVhalaman.tombolshop(new shopAction());
-        theVhalaman.buttonMenu().addActionListener(new menuAction());
-        theVhalaman.buttonLogout().addActionListener(new logoutAction());
         for (int i = 0; i < 6; i++) {
             theVhalaman.getButtonKandang()[i].addActionListener(new kandangAction());
         }
@@ -76,7 +76,12 @@ public class c_halaman {
         for (int i = 0; i < 5; i++) {
             theVhalaman.getButtonPapan()[i].addActionListener(new PapanAction());
         }
+        theVhalaman.buttonMenu().addActionListener(new menuAction());
         theVhalaman.buttonProfile().addActionListener(new profileAction());
+        theVhalaman.buttonInventori().addActionListener(new inventoriAction());
+        theVhalaman.buttonHelp().addActionListener(new helpAction());
+        theVhalaman.buttonAbout().addActionListener(new aboutAction());
+        theVhalaman.buttonLogout().addActionListener(new logoutAction());
         tampilPapan(kandang);
         tampilKandang(kandang);
         syaratBeliKandang(kandang);
@@ -218,7 +223,7 @@ public class c_halaman {
                         theMaset.updateDataKandang(kandang, theMaset.cekIdPlayer(username));
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVhalaman.setTeksKoin(theMaset.getJumlahKoin(username));
-                        System.out.println(koin);
+                        kandang = theMaset.getJumlahKandang(theMaset.cekIdPlayer(username));
                     } catch (SQLException ex) {
                         Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -238,43 +243,22 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equalsIgnoreCase("rumput1")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[0].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput2")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[1].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput3")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[2].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput4")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[3].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput5")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[4].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput6")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[5].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput7")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[6].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput8")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[7].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput9")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[8].setVisible(false);
-            } else if (e.getActionCommand().equalsIgnoreCase("rumput10")) {
-                rumput += 1;
-                theVhalaman.getButtonRumput()[9].setVisible(false);
+            for (int i = 0; i < theVhalaman.getButtonRumput().length; i++) {
+                if (e.getActionCommand().equalsIgnoreCase("rumput" + (i + 1))) {
+                    System.out.println(e.getActionCommand());
+                    try {
+                        theMaset.updateDataRumput(theMaset.getJumlahRumput(username) + 1, theMaset.cekIdPlayer(username));
+                    } catch (SQLException ex) {
+                        Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    theVhalaman.getButtonRumput()[i].setVisible(false);
+                }
             }
             try {
-                theMaset.updateDataRumput(rumput, theMaset.cekIdPlayer(username));
+                theVhalaman.setTeksRumput(theMaset.getJumlahRumput(username));
             } catch (SQLException ex) {
                 Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
             }
-            theVhalaman.setTeksRumput(rumput);
         }
 
     }
@@ -285,14 +269,14 @@ public class c_halaman {
         public void actionPerformed(ActionEvent e) {
             if (statusButton) {
                 theVhalaman.buttonProfile().setVisible(true);
-                theVhalaman.buttonSetting().setVisible(true);
+                theVhalaman.buttonInventori().setVisible(true);
                 theVhalaman.buttonHelp().setVisible(true);
                 theVhalaman.buttonAbout().setVisible(true);
                 theVhalaman.buttonLogout().setVisible(true);
                 statusButton = false;
             } else {
                 theVhalaman.buttonProfile().setVisible(false);
-                theVhalaman.buttonSetting().setVisible(false);
+                theVhalaman.buttonInventori().setVisible(false);
                 theVhalaman.buttonHelp().setVisible(false);
                 theVhalaman.buttonAbout().setVisible(false);
                 theVhalaman.buttonLogout().setVisible(false);
@@ -304,10 +288,19 @@ public class c_halaman {
 
     private class profileAction implements ActionListener {
 
-        private c_profile profile;
+        @Override
+        public void actionPerformed(ActionEvent e) {
 
-        public profileAction() throws SQLException {
-            profile = new c_profile(username, theVhalaman, play);
+        }
+
+    }
+
+    private class inventoriAction implements ActionListener {
+
+        private c_inventori profile;
+
+        public inventoriAction() throws SQLException {
+            profile = new c_inventori(username, theVhalaman, play);
             profile.getview().setVisible(false);
         }
 
@@ -316,6 +309,42 @@ public class c_halaman {
             play.StopMusik();
             theVhalaman.setVisible(false);
             profile.getview().setVisible(true);
+        }
+
+    }
+
+    private class helpAction implements ActionListener {
+
+        private c_help help;
+
+        public helpAction() {
+            help = new c_help(theVhalaman, play);
+            help.getview().setVisible(false);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            play.StopMusik();
+            theVhalaman.setVisible(false);
+            help.getview().setVisible(true);
+        }
+
+    }
+
+    private class aboutAction implements ActionListener {
+
+        private c_about about;
+
+        public aboutAction() {
+            about = new c_about(theVhalaman, play);
+            about.getview().setVisible(false);
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            play.StopMusik();
+            theVhalaman.setVisible(false);
+            about.getview().setVisible(true);
         }
 
     }
@@ -376,7 +405,7 @@ public class c_halaman {
             }
             try {
                 new c_kandang(username, statusKandang, theVhalaman, play);
-            } catch (SQLException ex) { 
+            } catch (SQLException ex) {
                 Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
             } catch (InterruptedException ex) {
                 Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
@@ -387,7 +416,7 @@ public class c_halaman {
 
     }
 
-    public class rumputTime extends Thread {
+    private class rumputTime extends Thread {
 
         @Override
         public void run() {

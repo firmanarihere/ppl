@@ -113,7 +113,7 @@ public class c_kandang {
             theVkandang.sapiButton()[i].setVisible(false);
         }
 
-        tampilSapi(theMaset.getJumlahSapi(username), kandang);
+        tampilSapi(sapi, kandang);
         theVkandang.setVisible(true);
     }
 
@@ -406,6 +406,7 @@ public class c_kandang {
             play.playHome();
             theVkandang.dispose();
             viewsebelumnya.setVisible(true);
+            viewsebelumnya.setTeksRumput(rumput);
         }
 
     }
@@ -486,13 +487,15 @@ public class c_kandang {
                         lapar[i] += 2;
                         if (lapar[i] >= 20) {
                             sakit[i] += 2;
-                            theVkandang.getLapar()[i].setText("Sapi Lapar");
+                            ///sk ubah disni
+                            theVkandang.sapiButton()[i].setIcon( new javax.swing.ImageIcon(getClass().getResource("/image/1mucet_sapiKiri.png")));
                             theVkandang.getLapar()[i].setVisible(true);
                         } else {
                             theVkandang.getLapar()[i].setVisible(false);
                         }
                         if (sakit[i] >= 50 && sakit[i] < 100) {
                             theVkandang.getSakit()[i].setText("Sapi Sakit");
+                            theVkandang.sapiButton()[i].setIcon( new javax.swing.ImageIcon(getClass().getResource("/image/sakit.png")));
                             theVkandang.getSakit()[i].setVisible(true);
                             theVkandang.getLapar()[i].setVisible(false);
                         } else if (sakit[i] >= 100) {
@@ -519,17 +522,6 @@ public class c_kandang {
                             sakit[i]+=25;
                         }
                     }
-
-//                    if (sakit[i] < 50 && lapar[i] < 20 && detik[i] % 5 == 0 && detik[i] > 0) {
-//                        theVkandang.susu()[i].setVisible(true);
-//                        detikSusu[i]++;
-//                        System.out.println("susu: " + detikSusu[i]);
-//                        if (detikSusu[i] >= 4) {
-//                            detikSusu[i] = 0;
-//                            sakit[i] = 60;
-//                            lapar[i] = 60;
-//                        }
-//                    }
                     System.out.println("Lapar " + i + ": " + lapar[i]);
                     System.out.println("Sakit " + i + ": " + sakit[i]);
                 }
@@ -566,15 +558,6 @@ public class c_kandang {
                 }
             } catch (InterruptedException ex) {
                 Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-
-    private class gameTime extends Thread {
-
-        @Override
-        public void run() {
-            while (true) {
             }
         }
     }

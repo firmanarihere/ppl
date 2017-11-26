@@ -135,13 +135,19 @@ public class v_login extends javax.swing.JFrame {
         createCancel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel di popup.png"))); // NOI18N
         createCancel.setBorderPainted(false);
         createCancel.setContentAreaFilled(false);
+        createCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        createCancel.setFocusPainted(false);
         createCancel.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel di popup over.png"))); // NOI18N
+        createCancel.setVerifyInputWhenFocusTarget(false);
         createAccount.getContentPane().add(createCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 390, 170, -1));
 
         create.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/create button.png"))); // NOI18N
         create.setBorderPainted(false);
         create.setContentAreaFilled(false);
+        create.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        create.setFocusPainted(false);
         create.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/create button rollover.png"))); // NOI18N
+        create.setVerifyInputWhenFocusTarget(false);
         createAccount.getContentPane().add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, 170, 90));
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,14 +178,19 @@ public class v_login extends javax.swing.JFrame {
         createAccountBtn.setBorderPainted(false);
         createAccountBtn.setContentAreaFilled(false);
         createAccountBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        createAccountBtn.setFocusPainted(false);
         createAccountBtn.setFocusable(false);
         createAccountBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/createAkunOver.png"))); // NOI18N
+        createAccountBtn.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(createAccountBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 480, 290, 80));
 
         loginBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Login button.png"))); // NOI18N
         loginBtn.setBorderPainted(false);
         loginBtn.setContentAreaFilled(false);
+        loginBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        loginBtn.setFocusPainted(false);
         loginBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/loginOver.png"))); // NOI18N
+        loginBtn.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 290, 80));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Background Login Dasar_1.png"))); // NOI18N

@@ -160,8 +160,14 @@ public class v_dalamKandang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        iconsusu = new javax.swing.JLabel();
+        iconsusu2 = new javax.swing.JLabel();
         rumputCounter = new javax.swing.JLabel();
         obatCounter = new javax.swing.JLabel();
+        iconsusu1 = new javax.swing.JLabel();
+        iconsusu3 = new javax.swing.JLabel();
+        iconsusu4 = new javax.swing.JLabel();
+        susuLabel = new javax.swing.JLabel();
         nutrisiCounter = new javax.swing.JLabel();
         suntikanCounter = new javax.swing.JLabel();
         statusBar = new javax.swing.JLabel();
@@ -177,8 +183,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         laparStat1 = new javax.swing.JLabel();
         laparStat = new javax.swing.JLabel();
         sakitStat = new javax.swing.JLabel();
-        iconsusu = new javax.swing.JLabel();
-        susuLabel = new javax.swing.JLabel();
         susuBtn1 = new javax.swing.JButton();
         susuBtn2 = new javax.swing.JButton();
         susuBtn3 = new javax.swing.JButton();
@@ -213,30 +217,66 @@ public class v_dalamKandang extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
+        iconsusu.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        iconsusu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconsusu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/medic Cilik.png"))); // NOI18N
+        getContentPane().add(iconsusu);
+        iconsusu.setBounds(980, 20, 50, 40);
+
+        iconsusu2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        iconsusu2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconsusu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/suntik Cilik.png"))); // NOI18N
+        getContentPane().add(iconsusu2);
+        iconsusu2.setBounds(760, 20, 50, 40);
+
         rumputCounter.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         rumputCounter.setText("rumputStatus");
         getContentPane().add(rumputCounter);
-        rumputCounter.setBounds(960, 34, 40, 20);
+        rumputCounter.setBounds(920, 30, 40, 20);
 
         obatCounter.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         obatCounter.setText("obatStatus");
         getContentPane().add(obatCounter);
-        obatCounter.setBounds(1060, 34, 40, 20);
+        obatCounter.setBounds(1030, 30, 40, 20);
+
+        iconsusu1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        iconsusu1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconsusu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu cilik.png"))); // NOI18N
+        getContentPane().add(iconsusu1);
+        iconsusu1.setBounds(670, 20, 50, 40);
+
+        iconsusu3.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        iconsusu3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconsusu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/nutrisi Cilik.png"))); // NOI18N
+        getContentPane().add(iconsusu3);
+        iconsusu3.setBounds(1100, 20, 50, 40);
+
+        iconsusu4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        iconsusu4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        iconsusu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/rumput cilik.png"))); // NOI18N
+        getContentPane().add(iconsusu4);
+        iconsusu4.setBounds(870, 20, 50, 40);
+
+        susuLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
+        susuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        susuLabel.setText("susu");
+        getContentPane().add(susuLabel);
+        susuLabel.setBounds(700, 20, 60, 40);
 
         nutrisiCounter.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         nutrisiCounter.setText("nutrisiStatus");
         getContentPane().add(nutrisiCounter);
-        nutrisiCounter.setBounds(1170, 34, 30, 20);
+        nutrisiCounter.setBounds(1150, 30, 30, 20);
 
         suntikanCounter.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         suntikanCounter.setText("jLabel3");
         getContentPane().add(suntikanCounter);
-        suntikanCounter.setBounds(880, 34, 45, 20);
+        suntikanCounter.setBounds(810, 30, 45, 20);
 
         statusBar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        statusBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/status bar dalam Kandang.png"))); // NOI18N
+        statusBar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/status bar dalam kandang_1.png"))); // NOI18N
         getContentPane().add(statusBar);
-        statusBar.setBounds(820, 10, 400, 60);
+        statusBar.setBounds(630, 10, 600, 60);
 
         sakitStat2.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         sakitStat2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -309,18 +349,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sakitStat.setText("sakit");
         getContentPane().add(sakitStat);
         sakitStat.setBounds(320, 100, 70, 40);
-
-        iconsusu.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        iconsusu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        iconsusu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu cilik.png"))); // NOI18N
-        getContentPane().add(iconsusu);
-        iconsusu.setBounds(740, 20, 40, 40);
-
-        susuLabel.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
-        susuLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        susuLabel.setText("susu");
-        getContentPane().add(susuLabel);
-        susuLabel.setBounds(770, 20, 60, 40);
 
         susuBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu_1.png"))); // NOI18N
         susuBtn1.setBorderPainted(false);
@@ -489,7 +517,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi6.setContentAreaFilled(false);
         sapi6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi6.setFocusable(false);
-        sapi6.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kanan.png"))); // NOI18N
         getContentPane().add(sapi6);
         sapi6.setBounds(910, 150, 220, 140);
 
@@ -498,7 +525,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi5.setContentAreaFilled(false);
         sapi5.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi5.setFocusable(false);
-        sapi5.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kanan.png"))); // NOI18N
         getContentPane().add(sapi5);
         sapi5.setBounds(980, 260, 220, 140);
 
@@ -507,7 +533,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi4.setContentAreaFilled(false);
         sapi4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi4.setFocusable(false);
-        sapi4.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kanan.png"))); // NOI18N
         getContentPane().add(sapi4);
         sapi4.setBounds(920, 380, 230, 140);
 
@@ -516,7 +541,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi3.setContentAreaFilled(false);
         sapi3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi3.setFocusable(false);
-        sapi3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kiri.png"))); // NOI18N
         getContentPane().add(sapi3);
         sapi3.setBounds(150, 390, 200, 113);
 
@@ -525,7 +549,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi2.setContentAreaFilled(false);
         sapi2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi2.setFocusable(false);
-        sapi2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kiri.png"))); // NOI18N
         getContentPane().add(sapi2);
         sapi2.setBounds(60, 270, 220, 113);
 
@@ -534,7 +557,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi1.setContentAreaFilled(false);
         sapi1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi1.setFocusable(false);
-        sapi1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang rollover sebelah kiri.png"))); // NOI18N
         getContentPane().add(sapi1);
         sapi1.setBounds(110, 140, 230, 160);
 
@@ -598,6 +620,10 @@ public class v_dalamKandang extends javax.swing.JFrame {
     private javax.swing.JButton airBtn;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel iconsusu;
+    private javax.swing.JLabel iconsusu1;
+    private javax.swing.JLabel iconsusu2;
+    private javax.swing.JLabel iconsusu3;
+    private javax.swing.JLabel iconsusu4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel laparStat;
     private javax.swing.JLabel laparStat1;

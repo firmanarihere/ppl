@@ -102,6 +102,7 @@ public class c_aset {
         
         @Override
         public void actionPerformed(ActionEvent e) {
+            viewsebelumnya.setTeksRumput(rumput);
             viewsebelumnya.setVisible(true);
             theVshop.setVisible(false);
             play.playHome();

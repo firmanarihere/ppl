@@ -28,16 +28,16 @@ public class v_halaman extends javax.swing.JFrame {
         kandang4Button.setActionCommand("kandang4");
         kandang5Button.setActionCommand("kandang5");
         kandang6Button.setActionCommand("kandang6");
-        rumputGratis1.setActionCommand("rumput1");
-        rumputGratis2.setActionCommand("rumput2");
-        rumputGratis3.setActionCommand("rumput3");
-        rumputGratis4.setActionCommand("rumput4");
-        rumputGratis5.setActionCommand("rumput5");
-        rumputGratis6.setActionCommand("rumput6");
-        rumputGratis7.setActionCommand("rumput7");
-        rumputGratis8.setActionCommand("rumput8");
-        rumputGratis9.setActionCommand("rumput9");
-        rumputGratis10.setActionCommand("rumput10");
+        rumputGratis1.setActionCommand("rumput"+1);
+        rumputGratis2.setActionCommand("rumput"+2);
+        rumputGratis3.setActionCommand("rumput"+3);
+        rumputGratis4.setActionCommand("rumput"+4);
+        rumputGratis5.setActionCommand("rumput"+5);
+        rumputGratis6.setActionCommand("rumput"+6);
+        rumputGratis7.setActionCommand("rumput"+7);
+        rumputGratis8.setActionCommand("rumput"+8);
+        rumputGratis9.setActionCommand("rumput"+9);
+        rumputGratis10.setActionCommand("rumput"+10);
         papanBeliKandang.setActionCommand("papan1");
         papanBelikandang2.setActionCommand("papan2");
         papanBelikandang3.setActionCommand("papan3");
@@ -64,8 +64,8 @@ public class v_halaman extends javax.swing.JFrame {
         return buttonProfile;
     }
 
-    public JButton buttonSetting() {
-        return buttonSetting;
+    public JButton buttonInventori() {
+        return buttonInventori;
     }
 
     public JButton buttonHelp() {
@@ -155,7 +155,7 @@ public class v_halaman extends javax.swing.JFrame {
         buttonHelp = new javax.swing.JButton();
         buttonLogout = new javax.swing.JButton();
         buttonAbout = new javax.swing.JButton();
-        buttonSetting = new javax.swing.JButton();
+        buttonInventori = new javax.swing.JButton();
         buttonProfile = new javax.swing.JButton();
         buttonMenu = new javax.swing.JButton();
         rumputGratis1 = new javax.swing.JButton();
@@ -253,14 +253,14 @@ public class v_halaman extends javax.swing.JFrame {
         buttonAbout.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/aboutOver.png"))); // NOI18N
         getContentPane().add(buttonAbout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 350, 80, 80));
 
-        buttonSetting.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon setting.png"))); // NOI18N
-        buttonSetting.setBorderPainted(false);
-        buttonSetting.setContentAreaFilled(false);
-        buttonSetting.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        buttonSetting.setFocusPainted(false);
-        buttonSetting.setFocusable(false);
-        buttonSetting.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/settingOver.png"))); // NOI18N
-        getContentPane().add(buttonSetting, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 180, 80, 90));
+        buttonInventori.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon Inventory.png"))); // NOI18N
+        buttonInventori.setBorderPainted(false);
+        buttonInventori.setContentAreaFilled(false);
+        buttonInventori.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        buttonInventori.setFocusPainted(false);
+        buttonInventori.setFocusable(false);
+        buttonInventori.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon Inventory rollover.png"))); // NOI18N
+        getContentPane().add(buttonInventori, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 180, 80, 90));
 
         buttonProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/icon profil.png"))); // NOI18N
         buttonProfile.setBorderPainted(false);
@@ -438,8 +438,9 @@ public class v_halaman extends javax.swing.JFrame {
         papanBelikandang3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         papanBelikandang3.setFocusPainted(false);
         papanBelikandang3.setFocusable(false);
+        papanBelikandang3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         papanBelikandang3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/papanBeliRollover.png"))); // NOI18N
-        getContentPane().add(papanBelikandang3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, -1, -1));
+        getContentPane().add(papanBelikandang3, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 130, 240, -1));
 
         papanBelikandang4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/papanBeli.png"))); // NOI18N
         papanBelikandang4.setBorderPainted(false);
@@ -582,10 +583,10 @@ public class v_halaman extends javax.swing.JFrame {
     private javax.swing.JLabel bgHome;
     private javax.swing.JButton buttonAbout;
     private javax.swing.JButton buttonHelp;
+    private javax.swing.JButton buttonInventori;
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonMenu;
     private javax.swing.JButton buttonProfile;
-    private javax.swing.JButton buttonSetting;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
