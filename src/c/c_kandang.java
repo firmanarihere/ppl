@@ -63,8 +63,9 @@ public class c_kandang {
     int detikSusu[] = {0, 0, 0, 0, 0, 0};
     int detikSusuHilang[] = {0, 0, 0, 0, 0, 0};
     boolean[] susuMuncul = {false, false, false, false, false, false};
-    Random random = new Random();
     boolean sapiKecil = false;
+    boolean suntikProgres = false;
+    Random random = new Random();
     v_halaman viewsebelumnya;
 
     public c_kandang(String username, String kandang, v_halaman viewsebelumnya, Play_musik play) throws SQLException, InterruptedException {
@@ -94,7 +95,6 @@ public class c_kandang {
         theVkandang.obatSapi().setVisible(false);
         theVkandang.nutrisiSapi().setVisible(false);
         theVkandang.rumputSapi().setVisible(false);
-        theVkandang.airSapi().setVisible(false);
 
         theVkandang.homeButton().addActionListener(new homeAction());
         theVkandang.suntikSapi().addActionListener(new suntikDipakai());
@@ -488,24 +488,24 @@ public class c_kandang {
                         if (lapar[i] >= 20) {
                             sakit[i] += 2;
                             ///sk ubah disni
-                            theVkandang.sapiButton()[i].setIcon( new javax.swing.ImageIcon(getClass().getResource("/image/1mucet_sapiKiri.png")));
+                            theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1mucet_sapiKiri.png")));
                             theVkandang.getLapar()[i].setVisible(true);
                         } else {
                             theVkandang.getLapar()[i].setVisible(false);
                         }
                         if (sakit[i] >= 50 && sakit[i] < 100) {
                             theVkandang.getSakit()[i].setText("Sapi Sakit");
-                            theVkandang.sapiButton()[i].setIcon( new javax.swing.ImageIcon(getClass().getResource("/image/sakit.png")));
+                            theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sakit.png")));
                             theVkandang.getSakit()[i].setVisible(true);
                             theVkandang.getLapar()[i].setVisible(false);
                         } else if (sakit[i] >= 100) {
                             theVkandang.getSakit()[i].setText("Sapi mati");
                             theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getLapar()[i].setVisible(false); 
+                            theVkandang.getLapar()[i].setVisible(false);
                             theVkandang.sapiButton()[i + 1].setVisible(false);
                         } else {
                             theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getSakit()[i].setText(sakit[i]+"");
+                            theVkandang.getSakit()[i].setText(sakit[i] + "");
                         }
                     }
                     if (detikSusu[i] % 30 == 0 && detikSusu[i] > 0 && sakit[i] < 50) {
@@ -517,9 +517,9 @@ public class c_kandang {
                         if (detikSusuHilang[i] % 15 == 0 && detikSusuHilang[i] > 0) {
                             theVkandang.susu()[i].setVisible(false);
                             detikSusuHilang[i] = 0;
-                            detikSusu[i]=0;
+                            detikSusu[i] = 0;
                             susuMuncul[i] = false;
-                            sakit[i]+=25;
+                            sakit[i] += 25;
                         }
                     }
                     System.out.println("Lapar " + i + ": " + lapar[i]);
@@ -531,7 +531,9 @@ public class c_kandang {
 
     private class sapiHamil extends Thread {
 
+        boolean run = true;
         int banyakRandom;
+        int count = 5;
 
         public sapiHamil(int banyakRandom) {
             this.banyakRandom = banyakRandom;
@@ -539,25 +541,67 @@ public class c_kandang {
 
         @Override
         public void run() {
-            theVhalaman.tampilPesan("Sapi telah di suntik \n Setelah menekan ok \n Tunggu 5 detik");
-            hamil = random.nextInt(banyakRandom);
-            suntik = suntik - 1;
-            try {
-                Thread.sleep(5000);
-                if (hamil == 1) {
-                    theVhalaman.tampilPesan("Suntik sapi berhasil, tunggu hingga sapi melahirkan");
-                    Thread.sleep(3000);
-//                theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[0].getX(), theVkandang.sapiButton()[0].getY());
-                    theVkandang.sapiButton()[0].setVisible(true);
-                    sapiKecil = true;
-                } else {
-                    theVhalaman.tampilPesan("Suntik sapi gagal");
-                    for (int i = 0; i < sakit.length; i++) {
-                        sakit[i] += 5;
+            if (JOptionPane.OK_OPTION == 0) {
+                if (!suntikProgres) {
+                    hamil = random.nextInt(banyakRandom);
+                    suntik = suntik - 1;
+                    theVhalaman.tampilPesan("Sapi telah di suntik \n Setelah menekan ok \n Tunggu 5 detik");
+                    while (run) {
+                        suntikProgres = true;
+                        try {
+                            Thread.sleep(1000);
+                            if (count >= 1) {
+                                theVkandang.counter().setVisible(true);
+                                for (int i = 1; i < theVkandang.sapiButton().length; i++) {
+                                    if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
+                                        if (i < 4) {
+                                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX() + 200, theVkandang.sapiButton()[i].getY() + 50);
+                                        } else {
+                                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX(), theVkandang.sapiButton()[i].getY() + 50);
+                                        }
+                                    }
+                                }
+                                theVkandang.counterBar().setValue(count);
+                                theVkandang.counter().setText(count + "");
+                                count--;
+                            } else {
+                                run = false;
+                                theVkandang.counter().setVisible(false);
+                                if (hamil == 1) {
+                                    theVhalaman.tampilPesan("Suntik sapi berhasil, tunggu beberapa saat \n hingga sapi melahirkan");
+                                    //bar progreesss muncul
+                                    Thread.sleep(3000);
+                                    //bar progres hilang
+                                    for (int i = 1; i < theVkandang.sapiButton().length; i++) {
+                                        if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
+                                            if (i < 4) {
+                                                theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() - 50, theVkandang.sapiButton()[i].getY() + 60);
+                                            } else {
+                                                theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() + 180, theVkandang.sapiButton()[i].getY() + 50);
+                                            }
+                                        }
+                                    }
+                                    theVkandang.sapiButton()[0].setVisible(true);
+                                    suntikProgres = false;
+                                    sapiKecil = true;
+                                    count = 0;
+                                } else {
+                                    suntikProgres = false;
+                                    theVhalaman.tampilPesan("Suntik sapi gagal");
+                                    for (int i = 1; i < theVkandang.sapiButton().length; i++) {
+                                        if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
+                                            sakit[i - 1] += 10;
+                                        }
+                                    }
+                                }
+                            }
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
+                } else {
+                    theVhalaman.tampilPesan("Sedang dalam prses menyuntik");
                 }
-            } catch (InterruptedException ex) {
-                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -582,7 +626,7 @@ public class c_kandang {
                             theVhalaman.tampilPesan("Jumlah suntikan anda tidak mencukupi");
                         }
                     } else {
-                        theVhalaman.tampilPesan("Tidak bisa lanjut suntik sapi krn kandang kecil sudah di tempati");
+                        theVhalaman.tampilPesan("Tidak bisa lanjut suntik sapi krn sapi kecil sudah lahir");
                     }
                 }
             }
@@ -648,6 +692,14 @@ public class c_kandang {
             System.out.println("nutrisi untuk: " + sapiStatus);
             if (nutrisi > 0) {
                 nutrisi = nutrisi - 1;
+                for (int i = 0; i < lapar.length; i++) {
+                    lapar[i] -= 10;
+                    sakit[i] -= 25;
+                    if (lapar[i] < 0 || sakit[i] < 0) {
+                        lapar[i] = 0;
+                        sakit[i] = 0;
+                    }
+                }
             } else {
                 theVhalaman.tampilPesan("Jumlah nutrisi anda tidak mencukupi");
             }
@@ -847,10 +899,8 @@ public class c_kandang {
             switch (tempat) {
                 case "tempat1":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[1].getX() + 50, theVkandang.tempatMakanButton()[1].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[1].getX() + 40, theVkandang.tempatMakanButton()[1].getY() + 40);
                     if (makan1 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = true;
                         makan2 = false;
                         makan3 = false;
@@ -859,16 +909,13 @@ public class c_kandang {
                         makan6 = false;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan1 = false;
                     }
                     break;
                 case "tempat2":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[2].getX() + 50, theVkandang.tempatMakanButton()[2].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[2].getX() + 40, theVkandang.tempatMakanButton()[2].getY() + 40);
                     if (makan2 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = false;
                         makan2 = true;
                         makan3 = false;
@@ -877,16 +924,13 @@ public class c_kandang {
                         makan6 = false;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan2 = false;
                     }
                     break;
                 case "tempat3":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[3].getX() + 50, theVkandang.tempatMakanButton()[3].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[3].getX() + 40, theVkandang.tempatMakanButton()[3].getY() + 40);
                     if (makan3 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = false;
                         makan2 = false;
                         makan3 = true;
@@ -895,16 +939,13 @@ public class c_kandang {
                         makan6 = false;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan3 = false;
                     }
                     break;
                 case "tempat4":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[4].getX() - 50, theVkandang.tempatMakanButton()[4].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[4].getX() - 60, theVkandang.tempatMakanButton()[4].getY() + 40);
                     if (makan4 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -913,16 +954,13 @@ public class c_kandang {
                         makan6 = false;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan4 = false;
                     }
                     break;
                 case "tempat5":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[5].getX() - 50, theVkandang.tempatMakanButton()[5].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[5].getX() - 60, theVkandang.tempatMakanButton()[5].getY() + 40);
                     if (makan5 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -931,16 +969,13 @@ public class c_kandang {
                         makan6 = false;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan5 = false;
                     }
                     break;
                 case "tempat6":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[6].getX() - 50, theVkandang.tempatMakanButton()[6].getY() - 30);
-                    theVkandang.airSapi().setLocation(theVkandang.tempatMakanButton()[6].getX() - 60, theVkandang.tempatMakanButton()[6].getY() + 40);
                     if (makan6 == false) {
                         theVkandang.rumputSapi().setVisible(true);
-                        theVkandang.airSapi().setVisible(true);
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -949,7 +984,6 @@ public class c_kandang {
                         makan6 = true;
                     } else {
                         theVkandang.rumputSapi().setVisible(false);
-                        theVkandang.airSapi().setVisible(false);
                         makan6 = false;
                     }
                     break;

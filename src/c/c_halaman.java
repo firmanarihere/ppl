@@ -245,7 +245,6 @@ public class c_halaman {
         public void actionPerformed(ActionEvent e) {
             for (int i = 0; i < theVhalaman.getButtonRumput().length; i++) {
                 if (e.getActionCommand().equalsIgnoreCase("rumput" + (i + 1))) {
-                    System.out.println(e.getActionCommand());
                     try {
                         theMaset.updateDataRumput(theMaset.getJumlahRumput(username) + 1, theMaset.cekIdPlayer(username));
                     } catch (SQLException ex) {
@@ -306,6 +305,17 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            try {
+                profile.theVinventori.setTeksSuntikan(theMaset.getJumlahSuntikan(username)+"");
+                profile.theVinventori.setTeksRumput(theMaset.getJumlahRumput(username)+"");
+                profile.theVinventori.setTeksSusu(theMaset.getJumlahSusu(username)+"");
+                profile.theVinventori.setTeksObat(theMaset.getJumlahObat(username)+"");
+                profile.theVinventori.setTeksNutrisi(theMaset.getJumlahNutrisi(username)+"");
+                profile.theVinventori.setTeksKandang(theMaset.getJumlahKandang(theMaset.cekIdPlayer(username))+"");
+                profile.theVinventori.setTeksSapiBesar(theMaset.getJumlahSapi(username)+"");
+            } catch (SQLException ex) {
+                Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+            }
             play.StopMusik();
             theVhalaman.setVisible(false);
             profile.getview().setVisible(true);
@@ -379,9 +389,14 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            play.StopMusik();
-            theVhalaman.setVisible(false);
-            shop.getview().setVisible(true);
+            try {
+                shop.theVshop.setRumput(theMaset.getJumlahRumput(username));
+                play.StopMusik();
+                theVhalaman.setVisible(false);
+                shop.getview().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -435,7 +450,7 @@ public class c_halaman {
                 }
                 if (timeCounter == 60) {
                     timeCounter = 0;
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < theVhalaman.getButtonRumput().length; i++) {
                         theVhalaman.getButtonRumput()[i].setVisible(false);
                     }
                 }

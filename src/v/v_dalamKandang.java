@@ -7,6 +7,7 @@ package v;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JProgressBar;
 
 /**
  *
@@ -42,6 +43,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         for (int i = 0; i < 6; i++) {
             susu()[i].setVisible(false);
         }
+        countDown.setVisible(false);
     }
 
     public JButton[] susu() {
@@ -57,10 +59,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
 
     public JButton rumputSapi() {
         return makanBtn;
-    }
-
-    public JButton airSapi() {
-        return airBtn;
     }
 
     public JButton suntikSapi() {
@@ -150,6 +148,13 @@ public class v_dalamKandang extends javax.swing.JFrame {
         this.susuLabel.setText(text + "");
         return text;
     }
+    
+    public JLabel counter(){
+         return countDown;
+    }
+    public JProgressBar counterBar(){
+         return bar;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,6 +165,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bar = new javax.swing.JProgressBar();
         iconsusu = new javax.swing.JLabel();
         iconsusu2 = new javax.swing.JLabel();
         rumputCounter = new javax.swing.JLabel();
@@ -183,6 +189,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         laparStat1 = new javax.swing.JLabel();
         laparStat = new javax.swing.JLabel();
         sakitStat = new javax.swing.JLabel();
+        countDown = new javax.swing.JLabel();
         susuBtn1 = new javax.swing.JButton();
         susuBtn2 = new javax.swing.JButton();
         susuBtn3 = new javax.swing.JButton();
@@ -192,7 +199,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         suntikBtn = new javax.swing.JButton();
         obatBtn = new javax.swing.JButton();
         nutrisiBtn = new javax.swing.JButton();
-        airBtn = new javax.swing.JButton();
         makanBtn = new javax.swing.JButton();
         tempatMakan6 = new javax.swing.JButton();
         tempatMakan5 = new javax.swing.JButton();
@@ -216,6 +222,13 @@ public class v_dalamKandang extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(1280, 730));
         setUndecorated(true);
         getContentPane().setLayout(null);
+
+        bar.setBackground(new java.awt.Color(204, 204, 204));
+        bar.setForeground(new java.awt.Color(0, 0, 0));
+        bar.setMaximum(5);
+        bar.setMinimum(1);
+        getContentPane().add(bar);
+        bar.setBounds(160, 160, 140, 10);
 
         iconsusu.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         iconsusu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -350,6 +363,13 @@ public class v_dalamKandang extends javax.swing.JFrame {
         getContentPane().add(sakitStat);
         sakitStat.setBounds(320, 100, 70, 40);
 
+        countDown.setBackground(new java.awt.Color(255, 255, 255));
+        countDown.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 20)); // NOI18N
+        countDown.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        countDown.setText("angka");
+        getContentPane().add(countDown);
+        countDown.setBounds(310, 190, 50, 30);
+
         susuBtn1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu_1.png"))); // NOI18N
         susuBtn1.setBorderPainted(false);
         susuBtn1.setContentAreaFilled(false);
@@ -422,14 +442,6 @@ public class v_dalamKandang extends javax.swing.JFrame {
         nutrisiBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/button ikon nutrisi rollover 2.png"))); // NOI18N
         getContentPane().add(nutrisiBtn);
         nutrisiBtn.setBounds(250, 90, 70, 70);
-
-        airBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/button ikon minum.png"))); // NOI18N
-        airBtn.setBorderPainted(false);
-        airBtn.setContentAreaFilled(false);
-        airBtn.setFocusable(false);
-        airBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/button ikon minum roll over.png"))); // NOI18N
-        getContentPane().add(airBtn);
-        airBtn.setBounds(390, 200, 120, 80);
 
         makanBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/IKON makan.png"))); // NOI18N
         makanBtn.setBorderPainted(false);
@@ -542,7 +554,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi3.setFocusable(false);
         getContentPane().add(sapi3);
-        sapi3.setBounds(150, 390, 200, 113);
+        sapi3.setBounds(120, 370, 203, 140);
 
         sapi2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang.png"))); // NOI18N
         sapi2.setBorderPainted(false);
@@ -558,7 +570,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi1.setFocusable(false);
         getContentPane().add(sapi1);
-        sapi1.setBounds(110, 140, 230, 160);
+        sapi1.setBounds(110, 140, 210, 150);
 
         tulisanExit.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
         tulisanExit.setText("EXIT");
@@ -617,7 +629,8 @@ public class v_dalamKandang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton airBtn;
+    private javax.swing.JProgressBar bar;
+    private javax.swing.JLabel countDown;
     private javax.swing.JButton homeButton;
     private javax.swing.JLabel iconsusu;
     private javax.swing.JLabel iconsusu1;

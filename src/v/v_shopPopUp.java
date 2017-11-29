@@ -117,6 +117,7 @@ public class v_shopPopUp extends javax.swing.JFrame {
         sellButton.setBorderPainted(false);
         sellButton.setContentAreaFilled(false);
         sellButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        sellButton.setFocusPainted(false);
         sellButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sell di popup over.png"))); // NOI18N
         sellButton.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(sellButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 180, 70));
@@ -132,6 +133,7 @@ public class v_shopPopUp extends javax.swing.JFrame {
         leftButton.setBorderPainted(false);
         leftButton.setContentAreaFilled(false);
         leftButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        leftButton.setFocusPainted(false);
         leftButton.setRequestFocusEnabled(false);
         leftButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/panah kiri over.png"))); // NOI18N
         leftButton.setVerifyInputWhenFocusTarget(false);
@@ -141,6 +143,7 @@ public class v_shopPopUp extends javax.swing.JFrame {
         rightButton.setBorderPainted(false);
         rightButton.setContentAreaFilled(false);
         rightButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        rightButton.setFocusPainted(false);
         rightButton.setRequestFocusEnabled(false);
         rightButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/panah kanan Over.png"))); // NOI18N
         rightButton.setVerifyInputWhenFocusTarget(false);
@@ -150,7 +153,9 @@ public class v_shopPopUp extends javax.swing.JFrame {
         cancelButton.setBorderPainted(false);
         cancelButton.setContentAreaFilled(false);
         cancelButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelButton.setFocusPainted(false);
         cancelButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cancel di popup over.png"))); // NOI18N
+        cancelButton.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(cancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 160, 70));
 
         backGround.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

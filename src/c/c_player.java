@@ -25,14 +25,14 @@ import v.v_login;
  * @author Rangora
  */
 public class c_player {
-    v_halaman theVhalaman;
-    v_login theV;
-    m_player theM;
-    m_aset theMaset;
-    AudioInputStream audio;
-    Clip clip;
-    int timeCounter = 0;
-    Random angka = new Random();
+    private v_halaman theVhalaman;
+    private v_login theV;
+    private m_player theM;
+    private m_aset theMaset;
+    private AudioInputStream audio;
+    private Clip clip;
+    private int timeCounter = 0;
+    private Random angka = new Random();
 
     public c_player() throws SQLException {
         this.theVhalaman = new v_halaman();

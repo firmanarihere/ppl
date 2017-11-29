@@ -60,6 +60,7 @@ public class v_about_team extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("DFPOP1-W9", 1, 24)); // NOI18N
@@ -107,7 +108,7 @@ public class v_about_team extends javax.swing.JFrame {
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 400, 80));
 
         jLabel7.setFont(new java.awt.Font("DFPOP1-W9", 1, 24)); // NOI18N
-        jLabel7.setText("PrograMer GaMe");
+        jLabel7.setText("ProGaMer GaMe");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 220, 30));
 
         jLabel8.setFont(new java.awt.Font("DFPOP1-W9", 0, 16)); // NOI18N
@@ -143,7 +144,7 @@ public class v_about_team extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/AboutUs.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
-        setBounds(0, 0, 1296, 759);
+        setBounds(0, 0, 1280, 720);
     }// </editor-fold>//GEN-END:initComponents
 
     /**

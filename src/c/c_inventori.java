@@ -19,13 +19,13 @@ import v.v_halaman;
  *
  * @author Rangora
  */
-public class c_inventori  {
+public class c_inventori {
 
     private String username;
-    private v_inventori theVinventori;
+    public v_inventori theVinventori;
     private m_aset theMaset;
     private v_halaman viewsebelumnya;
-    Play_musik play;
+    private Play_musik play;
 
     public c_inventori(String username, v_halaman viewsebelumnya, Play_musik play) throws SQLException {
         this.theVinventori = new v_inventori();
@@ -55,7 +55,7 @@ public class c_inventori  {
         @Override
         public void actionPerformed(ActionEvent e) {
             play.playHome();
-            theVinventori.setVisible(false);        
+            theVinventori.setVisible(false);
             viewsebelumnya.setVisible(true);
         }
 
