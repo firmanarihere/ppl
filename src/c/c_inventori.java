@@ -20,7 +20,6 @@ import v.v_halaman;
  * @author Rangora
  */
 public class c_inventori {
-
     private String username;
     public v_inventori theVinventori;
     private m_aset theMaset;
