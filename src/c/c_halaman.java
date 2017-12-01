@@ -391,6 +391,10 @@ public class c_halaman {
         public void actionPerformed(ActionEvent e) {
             try {
                 shop.theVshop.setRumput(theMaset.getJumlahRumput(username));
+                shop.theVshop.setNutrisi(theMaset.getJumlahNutrisi(username));
+                shop.theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
+                shop.theVshop.setObat(theMaset.getJumlahObat(username));
+                shop.theVshop.setSusu(theMaset.getJumlahSusu(username));
                 play.StopMusik();
                 theVhalaman.setVisible(false);
                 shop.getview().setVisible(true);

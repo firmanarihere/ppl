@@ -223,12 +223,12 @@ public class v_dalamKandang extends javax.swing.JFrame {
         setUndecorated(true);
         getContentPane().setLayout(null);
 
-        bar.setBackground(new java.awt.Color(204, 204, 204));
-        bar.setForeground(new java.awt.Color(0, 0, 0));
+        bar.setBackground(new java.awt.Color(255, 255, 255));
+        bar.setForeground(new java.awt.Color(255, 102, 204));
         bar.setMaximum(5);
         bar.setMinimum(1);
         getContentPane().add(bar);
-        bar.setBounds(160, 160, 140, 10);
+        bar.setBounds(150, 150, 140, 10);
 
         iconsusu.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 14)); // NOI18N
         iconsusu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -562,7 +562,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sapi2.setFocusable(false);
         getContentPane().add(sapi2);
-        sapi2.setBounds(60, 270, 220, 113);
+        sapi2.setBounds(60, 260, 210, 150);
 
         sapi1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang.png"))); // NOI18N
         sapi1.setBorderPainted(false);

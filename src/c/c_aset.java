@@ -38,10 +38,6 @@ public class c_aset {
     private boolean statusSuntikan = false;
     private boolean statusMedic = false;
     private boolean statusSusu = false;
-    private int nutrisi;
-    private int suntik;
-    private int obat;
-    private int susu;
     private int jumlah = 1;
     private AudioInputStream audio;
     private Clip clip;
@@ -58,10 +54,10 @@ public class c_aset {
         theVshop.setSapi(theMaset.getJumlahSapi(username));
         theVshop.setKoin(theMaset.getJumlahKoin(username));
         theVshop.setRumput(theMaset.getJumlahRumput(username));
-        nutrisi = theVshop.setNutrisi(theMaset.getJumlahNutrisi(username));
-        suntik = theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
-        obat = theVshop.setObat(theMaset.getJumlahObat(username));
-        susu = theVshop.setSusu(theMaset.getJumlahSusu(username));
+        theVshop.setNutrisi(theMaset.getJumlahNutrisi(username));
+        theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
+        theVshop.setObat(theMaset.getJumlahObat(username));
+        theVshop.setSusu(theMaset.getJumlahSusu(username));
         jumlah = theVpopUp.getTeksJumlah();
 
         theVshop.homeButton(new homeAction());
@@ -378,10 +374,11 @@ public class c_aset {
 
     private void nutrisiAction() {
         int koin;
+        int nutrisi;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
                 if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
-                    nutrisi = nutrisi + jumlah;
+                    nutrisi = theMaset.getJumlahNutrisi(username) + jumlah;
                     if (theMaset.updateDataNutisi(nutrisi, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -393,8 +390,8 @@ public class c_aset {
                     theVshop.tampilPesan("Koin Anda Tidak Mencukupi");
                 }
             } else if (statusShop.equalsIgnoreCase("sell")) {
-                if (nutrisi >= jumlah) {
-                    nutrisi = nutrisi - jumlah;
+                if (theMaset.getJumlahNutrisi(username) >= jumlah) {
+                    nutrisi = theMaset.getJumlahNutrisi(username) - jumlah;
                     if (theMaset.updateDataNutisi(nutrisi, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -407,7 +404,7 @@ public class c_aset {
                 }
             }
             theVshop.setKoin(theMaset.getJumlahKoin(username));
-            nutrisi = theVshop.setNutrisi(theMaset.getJumlahNutrisi(username));
+            theVshop.setNutrisi(theMaset.getJumlahNutrisi(username));
         } catch (SQLException ex) {
             Logger.getLogger(c_aset.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -416,10 +413,11 @@ public class c_aset {
 
     private void suntikAction() {
         int koin;
+        int suntik;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
                 if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
-                    suntik = suntik + jumlah;
+                    suntik = theMaset.getJumlahSuntikan(username) + jumlah;
                     if (theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -432,8 +430,8 @@ public class c_aset {
 
                 }
             } else if (statusShop.equalsIgnoreCase("sell")) {
-                if (suntik >= jumlah) {
-                    suntik = suntik - jumlah;
+                if (theMaset.getJumlahSuntikan(username) >= jumlah) {
+                    suntik = theMaset.getJumlahSuntikan(username) - jumlah;
                     if (theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -446,7 +444,7 @@ public class c_aset {
                 }
             }
             theVshop.setKoin(theMaset.getJumlahKoin(username));
-            suntik = theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
+            theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
         } catch (SQLException ex) {
             Logger.getLogger(c_aset.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -455,10 +453,11 @@ public class c_aset {
 
     private void obatAction() {
         int koin;
+        int obat;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
                 if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
-                    obat = obat + jumlah;
+                    obat = theMaset.getJumlahObat(username) + jumlah;
                     if (theMaset.updateDataObat(obat, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -470,8 +469,8 @@ public class c_aset {
                     theVshop.tampilPesan("Koin Anda Tidak Mencukupi");
                 }
             } else if (statusShop.equalsIgnoreCase("sell")) {
-                if (obat >= jumlah) {
-                    obat = obat - jumlah;
+                if (theMaset.getJumlahObat(username) >= jumlah) {
+                    obat = theMaset.getJumlahObat(username) - jumlah;
                     if (theMaset.updateDataObat(obat, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -493,10 +492,11 @@ public class c_aset {
 
     private void susuAction() {
         int koin;
+        int susu;
         try {
             if (statusShop.equalsIgnoreCase("sell")) {
-                if (susu >= jumlah) {
-                    susu = susu - jumlah;
+                if (theMaset.getJumlahSusu(username) >= jumlah) {
+                    susu = theMaset.getJumlahSusu(username) - jumlah;
                     if (theMaset.updateDataSusu(susu, theMaset.cekIdPlayer(username))) {
                         koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
@@ -510,7 +510,7 @@ public class c_aset {
                 }
             }
             theVshop.setKoin(theMaset.getJumlahKoin(username));
-            susu = theVshop.setSusu(theMaset.getJumlahSusu(username));
+            theVshop.setSusu(theMaset.getJumlahSusu(username));
         } catch (SQLException ex) {
             Logger.getLogger(c_aset.class.getName()).log(Level.SEVERE, null, ex);
         }

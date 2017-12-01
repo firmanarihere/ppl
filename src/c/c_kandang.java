@@ -65,6 +65,7 @@ public class c_kandang {
     boolean[] susuMuncul = {false, false, false, false, false, false};
     boolean sapiKecil = false;
     boolean suntikProgres = false;
+    String sapiHamil;
     Random random = new Random();
     v_halaman viewsebelumnya;
 
@@ -95,6 +96,7 @@ public class c_kandang {
         theVkandang.obatSapi().setVisible(false);
         theVkandang.nutrisiSapi().setVisible(false);
         theVkandang.rumputSapi().setVisible(false);
+        theVkandang.counterBar().setVisible(false);
 
         theVkandang.homeButton().addActionListener(new homeAction());
         theVkandang.suntikSapi().addActionListener(new suntikDipakai());
@@ -542,66 +544,46 @@ public class c_kandang {
         @Override
         public void run() {
             if (JOptionPane.OK_OPTION == 0) {
-                if (!suntikProgres) {
-                    hamil = random.nextInt(banyakRandom);
-                    suntik = suntik - 1;
-                    theVhalaman.tampilPesan("Sapi telah di suntik \n Setelah menekan ok \n Tunggu 5 detik");
-                    while (run) {
-                        suntikProgres = true;
-                        try {
-                            Thread.sleep(1000);
-                            if (count >= 1) {
-                                theVkandang.counter().setVisible(true);
+                hamil = random.nextInt(banyakRandom);
+                suntik = suntik - 1;
+                theVhalaman.tampilPesan("Sapi telah di suntik \n Setelah menekan ok \n Tunggu 5 detik");
+                while (run) {
+                    suntikProgres = true;
+                    try {
+                        Thread.sleep(1000);
+                        if (count >= 1) {
+                            theVkandang.counter().setVisible(true);
+                            theVkandang.counterBar().setVisible(true);
+                            theVkandang.counterBar().setValue(count);
+                            theVkandang.counter().setText(count + "");
+                            count--;
+                        } else {
+                            run = false;
+                            theVkandang.counterBar().setVisible(false);
+                            theVkandang.counter().setVisible(false);
+                            if (hamil == 1) {
+                                theVhalaman.tampilPesan("Suntik sapi berhasil, tunggu beberapa saat \n hingga sapi melahirkan");
+                                //bar progreesss muncul
+                                Thread.sleep(3000);
+                                theVkandang.sapiButton()[0].setVisible(true);
+                                suntikProgres = false;
+                                sapiKecil = true;
+                                count = 0;
+                            } else {
+                                suntikProgres = false;
+                                theVhalaman.tampilPesan("Suntik sapi gagal");
                                 for (int i = 1; i < theVkandang.sapiButton().length; i++) {
                                     if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
-                                        if (i < 4) {
-                                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX() + 200, theVkandang.sapiButton()[i].getY() + 50);
-                                        } else {
-                                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX(), theVkandang.sapiButton()[i].getY() + 50);
-                                        }
-                                    }
-                                }
-                                theVkandang.counterBar().setValue(count);
-                                theVkandang.counter().setText(count + "");
-                                count--;
-                            } else {
-                                run = false;
-                                theVkandang.counter().setVisible(false);
-                                if (hamil == 1) {
-                                    theVhalaman.tampilPesan("Suntik sapi berhasil, tunggu beberapa saat \n hingga sapi melahirkan");
-                                    //bar progreesss muncul
-                                    Thread.sleep(3000);
-                                    //bar progres hilang
-                                    for (int i = 1; i < theVkandang.sapiButton().length; i++) {
-                                        if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
-                                            if (i < 4) {
-                                                theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() - 50, theVkandang.sapiButton()[i].getY() + 60);
-                                            } else {
-                                                theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() + 180, theVkandang.sapiButton()[i].getY() + 50);
-                                            }
-                                        }
-                                    }
-                                    theVkandang.sapiButton()[0].setVisible(true);
-                                    suntikProgres = false;
-                                    sapiKecil = true;
-                                    count = 0;
-                                } else {
-                                    suntikProgres = false;
-                                    theVhalaman.tampilPesan("Suntik sapi gagal");
-                                    for (int i = 1; i < theVkandang.sapiButton().length; i++) {
-                                        if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
-                                            sakit[i - 1] += 10;
-                                        }
+                                        sakit[i - 1] += 10;
                                     }
                                 }
                             }
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                    } catch (InterruptedException ex) {
+                        Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
                     }
-                } else {
-                    theVhalaman.tampilPesan("Sedang dalam prses menyuntik");
                 }
+
             }
         }
     }
@@ -611,24 +593,41 @@ public class c_kandang {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("suntik untuk: " + sapiStatus);
-            for (int i = 0; i < 6; i++) {
-                if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
-                    if (!sapiKecil) {
-                        if (suntik > 0 && lapar[i] < 30 && sakit[i] < 60) {
-                            new sapiHamil(2).start();
-                        } else if (lapar[i] >= 30 && theVhalaman.tampilYesNo("Sapi dalam kondisi LAPAR, persentase keberhasilan mungkin menurun \n "
-                                + "tetap lanjut suntik?") == JOptionPane.YES_OPTION) {
-                            new sapiHamil(3).start();
-                        } else if (sakit[i] >= 60 && theVhalaman.tampilYesNo("Sapi dalam kondisi SAKIT, persentase keberhasilan mungkin menurun \n "
-                                + "tetap lanjut suntik?") == JOptionPane.YES_OPTION) {
-                            new sapiHamil(10).start();
-                        } else if (suntik <= 0) {
-                            theVhalaman.tampilPesan("Jumlah suntikan anda tidak mencukupi");
+            if (!suntikProgres && !sapiKecil) {
+                for (int i = 1; i < theVkandang.sapiButton().length; i++) {
+                    if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
+                        if (i < 4) {
+                            theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() - 50, theVkandang.sapiButton()[i].getY() + 60);
+                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX() + 200, theVkandang.sapiButton()[i].getY() + 50);
+                            theVkandang.counterBar().setLocation(theVkandang.sapiButton()[i].getX() + 40, theVkandang.sapiButton()[i].getY() + 10);
+                        } else {
+                            theVkandang.sapiButton()[0].setLocation(theVkandang.sapiButton()[i].getX() + 180, theVkandang.sapiButton()[i].getY() + 50);
+                            theVkandang.counter().setLocation(theVkandang.sapiButton()[i].getX(), theVkandang.sapiButton()[i].getY() + 50);
+                            theVkandang.counterBar().setLocation(theVkandang.sapiButton()[i].getX() + 40, theVkandang.sapiButton()[i].getY() + 10);
                         }
-                    } else {
-                        theVhalaman.tampilPesan("Tidak bisa lanjut suntik sapi krn sapi kecil sudah lahir");
                     }
                 }
+                for (int i = 0; i < 6; i++) {
+                    if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
+                        if (!sapiKecil) {
+                            if (suntik > 0 && lapar[i] < 30 && sakit[i] < 60) {
+                                new sapiHamil(2).start();
+                            } else if (lapar[i] >= 30 && theVhalaman.tampilYesNo("Sapi dalam kondisi LAPAR, persentase keberhasilan mungkin menurun \n "
+                                    + "tetap lanjut suntik?") == JOptionPane.YES_OPTION) {
+                                new sapiHamil(3).start();
+                            } else if (sakit[i] >= 60 && theVhalaman.tampilYesNo("Sapi dalam kondisi SAKIT, persentase keberhasilan mungkin menurun \n "
+                                    + "tetap lanjut suntik?") == JOptionPane.YES_OPTION) {
+                                new sapiHamil(10).start();
+                            } else if (suntik <= 0) {
+                                theVhalaman.tampilPesan("Jumlah suntikan anda tidak mencukupi");
+                            }
+                        }
+                    }
+                }
+            } else if (sapiKecil) {
+                theVhalaman.tampilPesan("Tidak bisa lanjut suntik sapi krn sapi kecil sudah lahir");
+            } else {
+                theVhalaman.tampilPesan("Sedang dalam prses menyuntik");
             }
             try {
                 theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username));
