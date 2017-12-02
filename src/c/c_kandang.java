@@ -689,18 +689,20 @@ public class c_kandang {
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("nutrisi untuk: " + sapiStatus);
-            if (nutrisi > 0) {
-                nutrisi = nutrisi - 1;
-                for (int i = 0; i < lapar.length; i++) {
-                    lapar[i] -= 10;
-                    sakit[i] -= 25;
-                    if (lapar[i] < 0 || sakit[i] < 0) {
-                        lapar[i] = 0;
-                        sakit[i] = 0;
+            for (int i = 0; i < 6; i++) {
+                if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
+                    if (nutrisi > 0) {
+                        nutrisi = nutrisi - 1;
+                        lapar[i] -= 10;
+                        sakit[i] -= 25;
+                        if (lapar[i] < 0 || sakit[i] < 0) {
+                            lapar[i] = 0;
+                            sakit[i] = 0;
+                        }
+                    } else {
+                        theVhalaman.tampilPesan("Jumlah nutrisi anda tidak mencukupi");
                     }
                 }
-            } else {
-                theVhalaman.tampilPesan("Jumlah nutrisi anda tidak mencukupi");
             }
             try {
                 theMaset.updateDataNutisi(nutrisi, theMaset.cekIdPlayer(username));
