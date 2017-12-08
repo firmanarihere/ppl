@@ -39,6 +39,7 @@ public class c_about {
         @Override
         public void actionPerformed(ActionEvent e) {
             play.playHome();
+            play.stopAbout();
             theVabout.setVisible(false);
             viewsebelumnya.setVisible(true);
         }

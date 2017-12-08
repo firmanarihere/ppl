@@ -108,7 +108,7 @@ public class v_about_team extends javax.swing.JFrame {
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, 400, 80));
 
         jLabel7.setFont(new java.awt.Font("DFPOP1-W9", 1, 24)); // NOI18N
-        jLabel7.setText("ProGaMer GaMe");
+        jLabel7.setText("PrograMMer GaMe");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 220, 30));
 
         jLabel8.setFont(new java.awt.Font("DFPOP1-W9", 0, 16)); // NOI18N

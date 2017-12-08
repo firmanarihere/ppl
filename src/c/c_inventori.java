@@ -54,6 +54,7 @@ public class c_inventori {
         @Override
         public void actionPerformed(ActionEvent e) {
             play.playHome();
+            play.stopInventori();
             theVinventori.setVisible(false);
             viewsebelumnya.setVisible(true);
         }

@@ -25,6 +25,7 @@ import v.v_login;
  * @author Rangora
  */
 public class c_player {
+
     private v_halaman theVhalaman;
     private v_login theV;
     private m_player theM;
@@ -60,8 +61,6 @@ public class c_player {
         }
     }
 
-    
-
     private class loginAction implements ActionListener {
 
         @Override
@@ -72,14 +71,20 @@ public class c_player {
                 } else if (theV.getPassword().isEmpty()) {
                     theV.tampilPesan("Silahkan isi password dulu");
                 } else if (theM.getPlayer(theV.getUsername(), theV.getPassword())) {
-                    new c_halaman(theV.getUsername());
-                    clip.stop();
-                    theV.dispose();
+                    if (theM.getUsername(theV.getUsername()).equals(theV.getUsername()) && theMaset.getPassword(theM.getUsername(theV.getUsername())).equals(theV.getPassword())) {
+                        new c_halaman(theV.getUsername());
+                        clip.stop();
+                        theV.dispose();
+                    }else{
+                        theV.tampilPesan("Username/Password Salah");
+                    }
                 } else {
                     theV.tampilPesan("Username/Password Salah");
                 }
             } catch (SQLException ex) {
                 System.out.println("ada sesuatu");
+            } catch (Exception ex) {
+                Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

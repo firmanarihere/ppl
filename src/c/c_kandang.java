@@ -23,74 +23,76 @@ import javax.swing.JOptionPane;
  */
 public class c_kandang {
 
-    v_dalamKandang theVkandang;
-    v_halaman theVhalaman;
-    Play_musik play;
-    m_aset theMaset;
-    String username;
-    String statusKandang;
-    int rumput;
-    int nutrisi;
-    int suntik;
-    int obat;
-    int susu;
-    int sapi;
-    String sapiStatus;
-    String tempatStatus;
-    int menit = 0;
+    private v_dalamKandang theVkandang;
+    private v_halaman theVhalaman;
+    private Play_musik play;
+    private m_aset theMaset;
+    private String username;
+    private String statusKandang;
+    public int sapi;
+    private String sapiStatus;
+    private String tempatStatus;
+    private int menit = 0;
     //ini buat tempatMAkann
-    boolean makan1 = false;
-    boolean makan2 = false;
-    boolean makan3 = false;
-    boolean makan4 = false;
-    boolean makan5 = false;
-    boolean makan6 = false;
+    private boolean makan0 = false;
+    private boolean makan1 = false;
+    private boolean makan2 = false;
+    private boolean makan3 = false;
+    private boolean makan4 = false;
+    private boolean makan5 = false;
+    private boolean makan6 = false;
 
     //ini buat sapi
-    boolean statusPencet1 = false;
-    boolean statusPencet2 = false;
-    boolean statusPencet3 = false;
-    boolean statusPencet4 = false;
-    boolean statusPencet5 = false;
-    boolean statusPencet6 = false;
+    private boolean statusPencet0 = false;
+    private boolean statusPencet1 = false;
+    private boolean statusPencet2 = false;
+    private boolean statusPencet3 = false;
+    private boolean statusPencet4 = false;
+    private boolean statusPencet5 = false;
+    private boolean statusPencet6 = false;
 
-    Thread laparSakitTime;
+    private Thread laparSakitTime;
 
-    int hamil;
-    int detik[] = {0, 0, 0, 0, 0, 0};
-    int sakit[] = {0, 0, 0, 0, 0, 0};
-    int lapar[] = {0, 0, 0, 0, 0, 0};
-    int detikSusu[] = {0, 0, 0, 0, 0, 0};
-    int detikSusuHilang[] = {0, 0, 0, 0, 0, 0};
-    boolean[] susuMuncul = {false, false, false, false, false, false};
-    boolean sapiKecil = false;
-    boolean suntikProgres = false;
-    String sapiHamil;
-    Random random = new Random();
-    v_halaman viewsebelumnya;
+    private int jumlahSapiDiKandang;
+    private int hamil;
+    private int detik[] = {0, 0, 0, 0, 0, 0};
+    private int sakit[] = {0, 0, 0, 0, 0, 0};
+    private int lapar[] = {0, 0, 0, 0, 0, 0};
+    private int detikSusu[] = {0, 0, 0, 0, 0, 0};
+    private int detikSusuHilang[] = {0, 0, 0, 0, 0, 0};
+    private boolean[] susuMuncul = {false, false, false, false, false, false};
+    private boolean sapiKecil = false;
+    private boolean suntikProgres = false;
+    private Random random = new Random();
+    private v_halaman viewsebelumnya;
+    private c_halaman controllersebelumnya;
+    private boolean[] sapiHidup = {false, false, false, false, false, false};
+    private int laparKecil = 0;
+    private int dewasaStatus;
+    private boolean sapiKecilLahir = false;
 
-    public c_kandang(String username, String kandang, v_halaman viewsebelumnya, Play_musik play) throws SQLException, InterruptedException {
+    public c_kandang(String username, String kandang, c_halaman controllersebelumnya, v_halaman viewsebelumnya, Play_musik play) throws SQLException, InterruptedException {
         this.theVkandang = new v_dalamKandang();
         this.theVhalaman = new v_halaman();
         this.play = play;
         this.theMaset = new m_aset();
         this.viewsebelumnya = viewsebelumnya;
+        this.controllersebelumnya = controllersebelumnya;
 
         this.username = username;
         this.statusKandang = kandang;
         sakitStat cobaSakit = new sakitStat();
         laparSakitTime = cobaSakit;
         laparSakitTime.start();
-        play.playKandang();
-        play.playSapi1();
-        play.playSapi2();
-        play.playSapi3();
-        rumput = theVkandang.setRumput(theMaset.getJumlahRumput(username));
-        nutrisi = theVkandang.setNutrisi(theMaset.getJumlahNutrisi(username));
-        suntik = theVkandang.setSuntikan(theMaset.getJumlahSuntikan(username));
-        obat = theVkandang.setObat(theMaset.getJumlahObat(username));
-        susu = theVkandang.setSusu(theMaset.getJumlahSusu(username));
+        theVkandang.setRumput(theMaset.getJumlahRumput(username));
+        theVkandang.setNutrisi(theMaset.getJumlahNutrisi(username));
+        theVkandang.setSuntikan(theMaset.getJumlahSuntikan(username));
+        theVkandang.setObat(theMaset.getJumlahObat(username));
+        theVkandang.setSusu(theMaset.getJumlahSusu(username));
         sapi = theMaset.getJumlahSapi(username);
+        for (int i = 0; i < cekJumlahSapiDiKandang(); i++) {
+            sapiHidup[i] = true;
+        }
 
         theVkandang.suntikSapi().setVisible(false);
         theVkandang.obatSapi().setVisible(false);
@@ -123,7 +125,7 @@ public class c_kandang {
         return theVkandang;
     }
 
-    private void tampilSapi(int jumlahSapi, String noKandang) {
+    public void tampilSapi(int jumlahSapi, String noKandang) {
         if (jumlahSapi > 0 && jumlahSapi < 6) {
             if (noKandang.equalsIgnoreCase("kandang1")) {
                 System.out.println(jumlahSapi);
@@ -404,17 +406,20 @@ public class c_kandang {
             play.stopSuara1();
             play.stopSuara2();
             play.stopSuara3();
-            laparSakitTime.stop();
             play.playHome();
-            theVkandang.dispose();
+            theVkandang.setVisible(false);
             viewsebelumnya.setVisible(true);
-            viewsebelumnya.setTeksRumput(rumput);
+            try {
+                viewsebelumnya.setTeksRumput(theMaset.getJumlahRumput(username));
+                viewsebelumnya.setTeksSapi(theMaset.getJumlahSapi(username) + "");
+            } catch (SQLException ex) {
+                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
 
-    private int cekJumlahSapiDiKandang() {
-        int jumlahSapiDiKandang = 0;
+    public int cekJumlahSapiDiKandang() {
         if (statusKandang.equalsIgnoreCase("kandang1")) {
             if (sapi >= 6) {
                 jumlahSapiDiKandang = 6;
@@ -467,49 +472,121 @@ public class c_kandang {
         return jumlahSapiDiKandang;
     }
 
+    public int kandangKosong() {
+        int kosong = 0;
+        for (int i = 0; i < 6; i++) {
+            if (!sapiHidup[i]) {
+                kosong++;
+            }
+        }
+        return kosong;
+    }
+
+    public int kandangBerisi() {
+        int berisi = 0;
+        for (int i = 0; i < 6; i++) {
+            if (sapiHidup[i]) {
+                berisi++;
+            }
+        }
+        return berisi;
+    }
+
+    public void tambahSapi(int sapiTambahan) throws SQLException {
+        for (int i = 0; i < sapiHidup.length; i++) {
+            if (!sapiHidup[i]) {
+                if (sapiTambahan != 0) {
+                    sapiHidup[i] = true;
+                    sapiTambahan--;
+                    System.out.println("sapi hidup " + (i + 1) + " " + sapiHidup[i]);
+                }
+            }
+        }
+        sapi = theMaset.getJumlahSapi(username);
+    }
+
+    public void kurangSapi(int sapiKurang) throws SQLException {
+        for (int i = sapiHidup.length - 1; i >= 0; i--) {
+            if (sapiHidup[i]) {
+                if (sapiKurang != 0) {
+                    sapiHidup[i] = false;
+                    sapiKurang--;
+                    System.out.println("sapi hidup " + (i + 1) + " " + sapiHidup[i]);
+                }
+            }
+        }
+        sapi = theMaset.getJumlahSapi(username);
+    }
+
     private class sakitStat extends Thread {
 
         @Override
         public void run() {
             while (true) {
-                int jumlahSapi = cekJumlahSapiDiKandang();
-                System.out.println("sapi======" + jumlahSapi);
                 try {
                     Thread.sleep(1000);
-                    for (int i = 0; i < jumlahSapi; i++) {
-                        detik[i]++;
-                        detikSusu[i]++;
-                        System.out.println("detik " + i + ": " + detik[i]);
+                    for (int i = 0; i < sapiHidup.length; i++) {
+                        if (sapiHidup[i]) {
+                            detik[i]++;
+                            detikSusu[i]++;
+                            theVkandang.sapiButton()[i + 1].setVisible(true);
+                        } else {
+                            theVkandang.sapiButton()[i + 1].setVisible(false);
+                        }
                     }
                 } catch (InterruptedException ex) {
                     Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                for (int i = 0; i < jumlahSapi; i++) {
-                    if (detik[i] % 5 == 0 && detik[i] > 0) {
+                for (int i = 0; i < sapiHidup.length; i++) {
+                    if (detik[i] % 3 == 0 && detik[i] > 0) {
                         lapar[i] += 2;
-                        if (lapar[i] >= 20) {
+                        if (lapar[i] >= 25) {
                             sakit[i] += 2;
                             ///sk ubah disni
-                            theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/1mucet_sapiKiri.png")));
-                            theVkandang.getLapar()[i].setVisible(true);
-                        } else {
-                            theVkandang.getLapar()[i].setVisible(false);
+                            if (i < 3) {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi pucet kiri.png")));
+                            } else {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi pucet kanan.png")));
+                            }
+//                            theVkandang.getLapar()[i].setVisible(true);
                         }
                         if (sakit[i] >= 50 && sakit[i] < 100) {
-                            theVkandang.getSakit()[i].setText("Sapi Sakit");
-                            theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sakit.png")));
-                            theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getLapar()[i].setVisible(false);
+//                            theVkandang.getSakit()[i].setText("Sapi Sakit");
+                            if (i < 3) {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi sakit kiri.png")));
+                            } else {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi sakit kanan.png")));
+                            }
+//                            theVkandang.getSakit()[i].setVisible(true);
+//                            theVkandang.getLapar()[i].setVisible(false);
                         } else if (sakit[i] >= 100) {
-                            theVkandang.getSakit()[i].setText("Sapi mati");
-                            theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getLapar()[i].setVisible(false);
-                            theVkandang.sapiButton()[i + 1].setVisible(false);
-                        } else {
-                            theVkandang.getSakit()[i].setVisible(true);
-                            theVkandang.getSakit()[i].setText(sakit[i] + "");
+                            try {
+//                                theVkandang.getSakit()[i].setText("Sapi mati");
+//                                theVkandang.getSakit()[i].setVisible(true);
+                                theVkandang.getLapar()[i].setVisible(false);
+                                theVkandang.sapiButton()[i + 1].setVisible(false);
+                                theMaset.deleteSapi(theMaset.getIdSapi(theMaset.cekIdPlayer(username)), theMaset.cekIdPlayer(username));
+                                theVhalaman.setTeksSapi(theMaset.getJumlahSapi(username) + "");
+                                jumlahSapiDiKandang--;
+                                sapi = theMaset.getJumlahSapi(username);
+                                detik[i] = 0;
+                                sakit[i] = 0;
+                                lapar[i] = 0;
+                                sapiHidup[i] = false;
+                            } catch (SQLException ex) {
+                                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                        if (sakit[i] < 50 && lapar[i] < 25) {
+                            if (i < 3) {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/sapi dalam kandang.png")));
+                            } else if (i >= 3) {
+                                theVkandang.sapiButton()[i + 1].setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Sapi dewasa.png")));
+                            }
                         }
                     }
+
+                    ///susu
                     if (detikSusu[i] % 30 == 0 && detikSusu[i] > 0 && sakit[i] < 50) {
                         theVkandang.susu()[i].setVisible(true);
                         susuMuncul[i] = true;
@@ -524,9 +601,9 @@ public class c_kandang {
                             sakit[i] += 25;
                         }
                     }
-                    System.out.println("Lapar " + i + ": " + lapar[i]);
-                    System.out.println("Sakit " + i + ": " + sakit[i]);
+                    System.out.println(statusKandang + "hidup : " + sapiHidup[i] + sakit[i]);
                 }
+                System.out.println("");
             }
         }
     }
@@ -545,7 +622,6 @@ public class c_kandang {
         public void run() {
             if (JOptionPane.OK_OPTION == 0) {
                 hamil = random.nextInt(banyakRandom);
-                suntik = suntik - 1;
                 theVhalaman.tampilPesan("Sapi telah di suntik \n Setelah menekan ok \n Tunggu 5 detik");
                 while (run) {
                     suntikProgres = true;
@@ -562,9 +638,10 @@ public class c_kandang {
                             theVkandang.counterBar().setVisible(false);
                             theVkandang.counter().setVisible(false);
                             if (hamil == 1) {
+                                sapiKecilLahir = true;
                                 theVhalaman.tampilPesan("Suntik sapi berhasil, tunggu beberapa saat \n hingga sapi melahirkan");
-                                //bar progreesss muncul
-                                Thread.sleep(3000);
+                                Thread.sleep(30000);
+                                //insert sapi here
                                 theVkandang.sapiButton()[0].setVisible(true);
                                 suntikProgres = false;
                                 sapiKecil = true;
@@ -588,12 +665,64 @@ public class c_kandang {
         }
     }
 
+    private class laparKecil extends Thread {
+
+        @Override
+        public void run() {
+            try {
+                while (sapiKecilLahir) {
+                    Thread.sleep(1000);
+                    laparKecil++;
+                    if (laparKecil < 20) {
+                        dewasaStatus++;
+                        if (dewasaStatus >= 50) {
+                            theVhalaman.tampilPesan("Sapi kecil sudah besar");
+                            theVkandang.sapiButton()[0].setVisible(false);
+                            dewasaStatus = 0;
+                            sapiKecilLahir = false;
+                            if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 1 && theMaset.getJumlahSapi(username) < 6) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 2 && theMaset.getJumlahSapi(username) < 12) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 3 && theMaset.getJumlahSapi(username) < 18) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 4 && theMaset.getJumlahSapi(username) < 24) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 5 && theMaset.getJumlahSapi(username) < 30) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else if (theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) == 6 && theMaset.getJumlahSapi(username) < 36) {
+                                theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username));
+                                controllersebelumnya.setTambah(1);
+                            } else {
+                                theVhalaman.tampilPesan("Kapasitas kandang full, sapi langsung dijual");
+                                theMaset.updateDataKoin(1750, username);
+                            }
+                        }
+                    } else if (laparKecil >= 20) {
+                        theVkandang.getLapar()[0].setVisible(true);
+                    }
+                }
+            } catch (InterruptedException ex) {
+                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     private class suntikDipakai implements ActionListener {
+
+        int suntik;
 
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("suntik untuk: " + sapiStatus);
-            if (!suntikProgres && !sapiKecil) {
+            if (!suntikProgres && !sapiKecilLahir) {
                 for (int i = 1; i < theVkandang.sapiButton().length; i++) {
                     if (theVkandang.sapiButton()[i].getActionCommand() == sapiStatus) {
                         if (i < 4) {
@@ -610,6 +739,11 @@ public class c_kandang {
                 for (int i = 0; i < 6; i++) {
                     if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
                         if (!sapiKecil) {
+                            try {
+                                suntik = theMaset.getJumlahSuntikan(username) - 1;
+                            } catch (SQLException ex) {
+                                Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             if (suntik > 0 && lapar[i] < 30 && sakit[i] < 60) {
                                 new sapiHamil(2).start();
                             } else if (lapar[i] >= 30 && theVhalaman.tampilYesNo("Sapi dalam kondisi LAPAR, persentase keberhasilan mungkin menurun \n "
@@ -624,17 +758,17 @@ public class c_kandang {
                         }
                     }
                 }
-            } else if (sapiKecil) {
+            } else if (sapiKecilLahir) {
                 theVhalaman.tampilPesan("Tidak bisa lanjut suntik sapi krn sapi kecil sudah lahir");
             } else {
                 theVhalaman.tampilPesan("Sedang dalam prses menyuntik");
             }
             try {
                 theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username));
+                theVkandang.setSuntikan(theMaset.getJumlahSuntikan(username));
             } catch (SQLException ex) {
                 Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
             }
-            theVkandang.setSuntikan(suntik);
             theVkandang.suntikSapi().setVisible(false);
             theVkandang.obatSapi().setVisible(false);
             theVkandang.nutrisiSapi().setVisible(false);
@@ -649,18 +783,24 @@ public class c_kandang {
 
     private class obatDipakai implements ActionListener {
 
+        int obat;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("obat untuk: " + sapiStatus);
             for (int i = 0; i < 6; i++) {
                 if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
-                    if (obat > 0) {
-                        sakit[i] = 0;
-                        lapar[i] = 20;
-                        theVkandang.getSakit()[i].setVisible(false);
-                        obat = obat - 1;
-                    } else {
-                        theVhalaman.tampilPesan("Jumlah obat anda tidak mencukupi");
+                    try {
+                        if (theMaset.getJumlahObat(username) > 0) {
+                            sakit[i] = 0;
+                            lapar[i] = 20;
+                            theVkandang.getSakit()[i].setVisible(false);
+                            obat = theMaset.getJumlahObat(username) - 1;
+                        } else {
+                            theVhalaman.tampilPesan("Jumlah obat anda tidak mencukupi");
+                        }
+                    } catch (SQLException ex) {
+                        Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -686,21 +826,27 @@ public class c_kandang {
 
     private class nutrisiDipakai implements ActionListener {
 
+        int nutrisi;
+
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("nutrisi untuk: " + sapiStatus);
             for (int i = 0; i < 6; i++) {
                 if (sapiStatus.equalsIgnoreCase("sapi" + (i + 1))) {
-                    if (nutrisi > 0) {
-                        nutrisi = nutrisi - 1;
-                        lapar[i] -= 10;
-                        sakit[i] -= 25;
-                        if (lapar[i] < 0 || sakit[i] < 0) {
-                            lapar[i] = 0;
-                            sakit[i] = 0;
+                    try {
+                        if (theMaset.getJumlahNutrisi(username) > 0) {
+                            nutrisi = theMaset.getJumlahNutrisi(username) - 1;
+                            lapar[i] -= 10;
+                            sakit[i] -= 25;
+                            if (lapar[i] < 0 || sakit[i] < 0) {
+                                lapar[i] = 0;
+                                sakit[i] = 0;
+                            }
+                        } else {
+                            theVhalaman.tampilPesan("Jumlah nutrisi anda tidak mencukupi");
                         }
-                    } else {
-                        theVhalaman.tampilPesan("Jumlah nutrisi anda tidak mencukupi");
+                    } catch (SQLException ex) {
+                        Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }
@@ -725,26 +871,44 @@ public class c_kandang {
 
     private class rumputDipakai implements ActionListener {
 
+        int rumput;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            for (int i = 0; i < 6; i++) {
-                if (tempatStatus.equalsIgnoreCase("tempat" + (i + 1))) {
-                    if (rumput > 0) {
-                        detik[i] = 0;
-                        lapar[i] = 0;
-                        theVkandang.getLapar()[i].setVisible(false);
-                        rumput = rumput - 1;
+            try {
+                if (tempatStatus.equalsIgnoreCase("tempat0")) {
+                    if (theMaset.getJumlahRumput(username) > 0) {
+                        laparKecil = 0;
+                        rumput = theMaset.getJumlahRumput(username) - 1;
+                        theVkandang.getLapar()[0].setVisible(false);
                     } else {
                         theVhalaman.tampilPesan("Jumlah rumput anda tidak mencukupi");
                     }
                 }
-            }
-            try {
+                for (int i = 0; i < 6; i++) {
+                    if (tempatStatus.equalsIgnoreCase("tempat" + (i + 1))) {
+                        if (theMaset.getJumlahRumput(username) > 0) {
+                            detik[i] = 0;
+                            lapar[i] = 0;
+                            rumput = theMaset.getJumlahRumput(username) - 1;
+                        } else {
+                            theVhalaman.tampilPesan("Jumlah rumput anda tidak mencukupi");
+                        }
+
+                    }
+                }
                 theMaset.updateDataRumput(rumput, theMaset.cekIdPlayer(username));
             } catch (SQLException ex) {
                 Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
             }
             theVkandang.setRumput(rumput);
+            theVkandang.rumputSapi().setVisible(false);
+            makan1 = false;
+            makan2 = false;
+            makan3 = false;
+            makan4 = false;
+            makan5 = false;
+            makan6 = false;
         }
 
     }
@@ -756,8 +920,34 @@ public class c_kandang {
             String sapi = e.getActionCommand();
             switch (sapi) {
                 case "sapi0":
-                    theVkandang.sapiButton()[0].setLocation(630, 110);
-                    theVhalaman.tampilPesan("Sapi kecil telah di pindahkan");
+                    if (sapiKecil) {
+                        laparKecil laparKecil = new laparKecil();
+                        laparKecil.start();
+                        theVkandang.sapiButton()[0].setLocation(630, 110);
+                        theVhalaman.tampilPesan("Sapi kecil telah di pindahkan");
+                        sapiKecil = false;
+                    } else {
+                        theVkandang.suntikSapi().setLocation(theVkandang.sapiButton()[0].getX() + 10, theVkandang.sapiButton()[0].getY() - 50);
+                        theVkandang.obatSapi().setLocation(theVkandang.sapiButton()[0].getX() + 70, theVkandang.sapiButton()[0].getY() - 50);
+                        theVkandang.nutrisiSapi().setLocation(theVkandang.sapiButton()[0].getX() + 130, theVkandang.sapiButton()[0].getY() - 50);
+                        if (statusPencet0 == false) {
+                            theVkandang.suntikSapi().setVisible(false);
+                            theVkandang.obatSapi().setVisible(true);
+                            theVkandang.nutrisiSapi().setVisible(true);
+                            statusPencet0 = true;
+                            statusPencet1 = false;
+                            statusPencet2 = false;
+                            statusPencet3 = false;
+                            statusPencet4 = false;
+                            statusPencet5 = false;
+                            statusPencet6 = false;
+                        } else {
+                            theVkandang.obatSapi().setVisible(false);
+                            theVkandang.nutrisiSapi().setVisible(false);
+                            statusPencet0 = false;
+                        }
+
+                    }
                     break;
                 case "sapi1":
                     theVkandang.suntikSapi().setLocation(theVkandang.sapiButton()[1].getX() + 10, theVkandang.sapiButton()[1].getY() - 50);
@@ -767,6 +957,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = true;
                         statusPencet2 = false;
                         statusPencet3 = false;
@@ -788,6 +979,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = false;
                         statusPencet2 = true;
                         statusPencet3 = false;
@@ -809,6 +1001,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = false;
                         statusPencet2 = false;
                         statusPencet3 = true;
@@ -830,6 +1023,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = false;
                         statusPencet2 = false;
                         statusPencet3 = false;
@@ -851,6 +1045,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = false;
                         statusPencet2 = false;
                         statusPencet3 = false;
@@ -872,6 +1067,7 @@ public class c_kandang {
                         theVkandang.suntikSapi().setVisible(true);
                         theVkandang.obatSapi().setVisible(true);
                         theVkandang.nutrisiSapi().setVisible(true);
+                        statusPencet0 = false;
                         statusPencet1 = false;
                         statusPencet2 = false;
                         statusPencet3 = false;
@@ -898,10 +1094,27 @@ public class c_kandang {
             String tempat = e.getActionCommand();
             System.out.println(tempat);
             switch (tempat) {
+                case "tempat0":
+                    theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[0].getX() - 50, theVkandang.tempatMakanButton()[0].getY() - 30);
+                    if (makan0 == false) {
+                        theVkandang.rumputSapi().setVisible(true);
+                        makan0 = true;
+                        makan1 = false;
+                        makan2 = false;
+                        makan3 = false;
+                        makan4 = false;
+                        makan5 = false;
+                        makan6 = false;
+                    } else {
+                        theVkandang.rumputSapi().setVisible(false);
+                        makan0 = false;
+                    }
+                    break;
                 case "tempat1":
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[1].getX() + 50, theVkandang.tempatMakanButton()[1].getY() - 30);
                     if (makan1 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = true;
                         makan2 = false;
                         makan3 = false;
@@ -917,6 +1130,7 @@ public class c_kandang {
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[2].getX() + 50, theVkandang.tempatMakanButton()[2].getY() - 30);
                     if (makan2 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = false;
                         makan2 = true;
                         makan3 = false;
@@ -932,6 +1146,7 @@ public class c_kandang {
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[3].getX() + 50, theVkandang.tempatMakanButton()[3].getY() - 30);
                     if (makan3 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = false;
                         makan2 = false;
                         makan3 = true;
@@ -947,6 +1162,7 @@ public class c_kandang {
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[4].getX() - 50, theVkandang.tempatMakanButton()[4].getY() - 30);
                     if (makan4 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -962,6 +1178,7 @@ public class c_kandang {
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[5].getX() - 50, theVkandang.tempatMakanButton()[5].getY() - 30);
                     if (makan5 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -977,6 +1194,7 @@ public class c_kandang {
                     theVkandang.rumputSapi().setLocation(theVkandang.tempatMakanButton()[6].getX() - 50, theVkandang.tempatMakanButton()[6].getY() - 30);
                     if (makan6 == false) {
                         theVkandang.rumputSapi().setVisible(true);
+                        makan0 = false;
                         makan1 = false;
                         makan2 = false;
                         makan3 = false;
@@ -996,12 +1214,14 @@ public class c_kandang {
 
     private class susuAction implements ActionListener {
 
+        int susu;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            susu++;
             try {
+                susu = theMaset.getJumlahSusu(username) + 1;
                 theMaset.updateDataSusu(susu, theMaset.cekIdPlayer(username));
-                theVkandang.setSusu(susu);
+                theVkandang.setSusu(theMaset.getJumlahSusu(username));
             } catch (SQLException ex) {
                 Logger.getLogger(c_kandang.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1015,6 +1235,10 @@ public class c_kandang {
             }
         }
 
+    }
+
+    public v_dalamKandang getView() {
+        return theVkandang;
     }
 
 }

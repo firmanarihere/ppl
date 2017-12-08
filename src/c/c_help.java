@@ -39,6 +39,7 @@ public class c_help {
         @Override
         public void actionPerformed(ActionEvent e) {
             play.playHome();
+            play.stopHelp();
             theVhelp.setVisible(false);
             viewsebelumnya.setVisible(true);
         }

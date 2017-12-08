@@ -51,7 +51,7 @@ public class m_function {
     public String getDataString (String query) throws SQLException{
         ResultSet hasil = con.getResult(query);
         hasil.next();
-        String data = hasil.getString(1).toUpperCase();
+        String data = hasil.getString(1);
         return data;
     }
 }

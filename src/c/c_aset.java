@@ -42,14 +42,16 @@ public class c_aset {
     private AudioInputStream audio;
     private Clip clip;
     private v_halaman viewsebelumnya;
+    private c_halaman controllersebelumnya;
 
-    public c_aset(String username, v_halaman viewsebelumnya, Play_musik play) throws SQLException {
+    public c_aset(String username, c_halaman controllersebelumnya, v_halaman viewsebelumnya, Play_musik play) throws SQLException {
         theVshop = new v_shop();
         theVpopUp = new v_shopPopUp();
         theMaset = new m_aset();
         this.play = play;
         this.username = username;
         this.viewsebelumnya = viewsebelumnya;
+        this.controllersebelumnya = controllersebelumnya;
 
         theVshop.setSapi(theMaset.getJumlahSapi(username));
         theVshop.setKoin(theMaset.getJumlahKoin(username));
@@ -105,6 +107,7 @@ public class c_aset {
             viewsebelumnya.setVisible(true);
             theVshop.setVisible(false);
             play.playHome();
+            play.stopShop();
         }
 
     }
@@ -118,12 +121,11 @@ public class c_aset {
             theVshop.getSusuButton().setVisible(false);
             theVshop.getKoinIcon().setVisible(false);
             statusShop = "buy";
-            theVshop.setSapiPrice(1000);
-            theVshop.setRumputPrice(1000);
-            theVshop.setNutrisiPrice(1000);
-            theVshop.setSuntikPrice(1000);
-            theVshop.setObatPrice(1000);
-            theVshop.setSusuPrice(1000);
+            theVshop.setSapiPrice(3500);
+            theVshop.setRumputPrice(40);
+            theVshop.setNutrisiPrice(550);
+            theVshop.setSuntikPrice(1500);
+            theVshop.setObatPrice(500);
             theVshop.getBuyLabel().setVisible(true);
             theVshop.getBuyButton().setVisible(false);
             theVshop.getSellLabel().setVisible(false);
@@ -141,12 +143,12 @@ public class c_aset {
             theVshop.getSusuButton().setVisible(true);
             theVshop.getKoinIcon().setVisible(true);
             statusShop = "sell";
-            theVshop.setSapiPrice(500);
-            theVshop.setRumputPrice(500);
-            theVshop.setNutrisiPrice(500);
-            theVshop.setSuntikPrice(500);
-            theVshop.setObatPrice(500);
-            theVshop.setSusuPrice(500);
+            theVshop.setSapiPrice(1750);
+            theVshop.setRumputPrice(20);
+            theVshop.setNutrisiPrice(275);
+            theVshop.setSuntikPrice(750);
+            theVshop.setObatPrice(250);
+            theVshop.setSusuPrice(30);
             theVshop.getSellLabel().setVisible(true);
             theVshop.getSellButton().setVisible(false);
             theVshop.getBuyLabel().setVisible(false);
@@ -292,10 +294,10 @@ public class c_aset {
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
                 if ((theMaset.getJumlahSapi(username) + jumlah) <= jumlahSapiMaksimal(theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)))) {
-                    if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
+                    if (theMaset.getJumlahKoin(username) >= (jumlah * 3500)) {
                         for (int i = 0; i < jumlah; i++) {
                             if (theMaset.insertDataSapi(theMaset.cekIdSapi(), theMaset.cekIdPlayer(username))) {
-                                koin = theMaset.getJumlahKoin(username) - 1000;
+                                koin = theMaset.getJumlahKoin(username) - 3500;
                                 theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                             } else {
                                 System.out.println("beli sapi gagal");
@@ -304,6 +306,8 @@ public class c_aset {
                         theVshop.tampilPesan("Transkasi berhasil");
                         theVshop.setKoin(theMaset.getJumlahKoin(username));
                         theVshop.setSapi(theMaset.getJumlahSapi(username));
+                        controllersebelumnya.setTambah(jumlah);
+                        System.out.println("beli");
                     } else {
                         theVshop.tampilPesan("Koin Anda Tidak Mencukupi");
                     }
@@ -315,7 +319,7 @@ public class c_aset {
                 if (jumlah <= theMaset.getJumlahSapi(username)) {
                     for (int i = 0; i < jumlah; i++) {
                         if (theMaset.deleteSapi(theMaset.getIdSapi(theMaset.cekIdPlayer(username)), theMaset.cekIdPlayer(username))) {
-                            koin = theMaset.getJumlahKoin(username) + 500;
+                            koin = theMaset.getJumlahKoin(username) + 1750;
                             theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         } else {
                             System.out.println("gagal delete sapi");
@@ -324,6 +328,8 @@ public class c_aset {
                     theVshop.tampilPesan("Transkasi berhasil");
                     theVshop.setKoin(theMaset.getJumlahKoin(username));
                     theVshop.setSapi(theMaset.getJumlahSapi(username));
+                    controllersebelumnya.setKurang(jumlah);
+                    System.out.println("jual");
                 } else {
                     theVshop.tampilPesan("Tidak memiliki cukup sapi untuk dijual");
                 }
@@ -339,10 +345,10 @@ public class c_aset {
         int koin;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
-                if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
+                if (theMaset.getJumlahKoin(username) >= (jumlah * 40)) {
                     rumput = theMaset.getJumlahRumput(username) + jumlah;
                     if (theMaset.updateDataRumput(rumput, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) - (1000 * jumlah);
+                        koin = theMaset.getJumlahKoin(username) - (40 * jumlah);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -355,12 +361,10 @@ public class c_aset {
                 if (theMaset.getJumlahRumput(username) >= jumlah) {
                     rumput = theMaset.getJumlahRumput(username) - jumlah;
                     if (theMaset.updateDataRumput(rumput, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
+                        koin = theMaset.getJumlahKoin(username) + (jumlah * 20);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
-                    } else {
-                        System.out.println("gagal update rumput");
-                    }
+                    } 
                 } else {
                     theVshop.tampilPesan("Tidak memiliki cukup rumput untuk dijual");
                 }
@@ -377,10 +381,10 @@ public class c_aset {
         int nutrisi;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
-                if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
+                if (theMaset.getJumlahKoin(username) >= (jumlah * 550)) {
                     nutrisi = theMaset.getJumlahNutrisi(username) + jumlah;
                     if (theMaset.updateDataNutisi(nutrisi, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
+                        koin = theMaset.getJumlahKoin(username) - (jumlah * 550);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -393,12 +397,10 @@ public class c_aset {
                 if (theMaset.getJumlahNutrisi(username) >= jumlah) {
                     nutrisi = theMaset.getJumlahNutrisi(username) - jumlah;
                     if (theMaset.updateDataNutisi(nutrisi, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
+                        koin = theMaset.getJumlahKoin(username) + (jumlah * 275);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
-                    } else {
-                        System.out.println("gagal update rumput");
-                    }
+                    } 
                 } else {
                     theVshop.tampilPesan("Tidak memiliki cukup nutrisi untuk dijual");
                 }
@@ -416,10 +418,10 @@ public class c_aset {
         int suntik;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
-                if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
+                if (theMaset.getJumlahKoin(username) >= (jumlah * 1500)) {
                     suntik = theMaset.getJumlahSuntikan(username) + jumlah;
                     if (theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
+                        koin = theMaset.getJumlahKoin(username) - (jumlah * 1500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -433,7 +435,7 @@ public class c_aset {
                 if (theMaset.getJumlahSuntikan(username) >= jumlah) {
                     suntik = theMaset.getJumlahSuntikan(username) - jumlah;
                     if (theMaset.updateDataSuntikan(suntik, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
+                        koin = theMaset.getJumlahKoin(username) + (jumlah * 750);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -456,10 +458,10 @@ public class c_aset {
         int obat;
         try {
             if (statusShop.equalsIgnoreCase("buy")) {
-                if (theMaset.getJumlahKoin(username) >= (jumlah * 1000)) {
+                if (theMaset.getJumlahKoin(username) >= (jumlah * 500)) {
                     obat = theMaset.getJumlahObat(username) + jumlah;
                     if (theMaset.updateDataObat(obat, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) - (jumlah * 1000);
+                        koin = theMaset.getJumlahKoin(username) - (jumlah * 500);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -472,7 +474,7 @@ public class c_aset {
                 if (theMaset.getJumlahObat(username) >= jumlah) {
                     obat = theMaset.getJumlahObat(username) - jumlah;
                     if (theMaset.updateDataObat(obat, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
+                        koin = theMaset.getJumlahKoin(username) + (jumlah * 250);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {
@@ -498,7 +500,7 @@ public class c_aset {
                 if (theMaset.getJumlahSusu(username) >= jumlah) {
                     susu = theMaset.getJumlahSusu(username) - jumlah;
                     if (theMaset.updateDataSusu(susu, theMaset.cekIdPlayer(username))) {
-                        koin = theMaset.getJumlahKoin(username) + (jumlah * 500);
+                        koin = theMaset.getJumlahKoin(username) + (jumlah * 30);
                         theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
                         theVshop.tampilPesan("Transkasi berhasil");
                     } else {

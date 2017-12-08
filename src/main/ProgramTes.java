@@ -5,6 +5,7 @@
  */
 package main;
 
+import c.c_halaman;
 import c.c_kandang;
 import c.c_player;
 import java.sql.SQLException;
@@ -20,10 +21,10 @@ public class ProgramTes {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws SQLException, InterruptedException {
+    public static void main(String[] args) throws Exception {
 //        Thread.sleep(1000);
         new c_player();
-//        new c_kandang("aku", "kandang1");
+//        new c_halaman("aku");
     }
 
 }

@@ -248,34 +248,54 @@ public class v_shop extends javax.swing.JFrame {
         rumputCounter.setText("rumput");
         getContentPane().add(rumputCounter, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 10, 60, 40));
 
+        susuButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
         susuButton.setBorderPainted(false);
         susuButton.setContentAreaFilled(false);
         susuButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        susuButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        susuButton.setFocusPainted(false);
+        susuButton.setFocusable(false);
+        susuButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
         getContentPane().add(susuButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 440, 500, 110));
 
+        obatButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
         obatButton.setBorderPainted(false);
         obatButton.setContentAreaFilled(false);
         obatButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        obatButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        obatButton.setFocusPainted(false);
+        obatButton.setFocusable(false);
+        obatButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
         getContentPane().add(obatButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 300, 500, 110));
 
+        suntikanButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
         suntikanButton.setBorderPainted(false);
         suntikanButton.setContentAreaFilled(false);
         suntikanButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        suntikanButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        suntikanButton.setFocusPainted(false);
+        suntikanButton.setFocusable(false);
+        suntikanButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
+        suntikanButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                suntikanButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(suntikanButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 500, 120));
 
+        nutrisiButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
         nutrisiButton.setBorderPainted(false);
         nutrisiButton.setContentAreaFilled(false);
         nutrisiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        nutrisiButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        nutrisiButton.setFocusPainted(false);
+        nutrisiButton.setFocusable(false);
+        nutrisiButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
         getContentPane().add(nutrisiButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 440, 490, 110));
 
+        sapiButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
         sapiButton.setBorderPainted(false);
         sapiButton.setContentAreaFilled(false);
         sapiButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        sapiButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        sapiButton.setFocusPainted(false);
+        sapiButton.setFocusable(false);
+        sapiButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
         sapiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 sapiButtonActionPerformed(evt);
@@ -283,10 +303,14 @@ public class v_shop extends javax.swing.JFrame {
         });
         getContentPane().add(sapiButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 490, 110));
 
+        rumputButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek.png"))); // NOI18N
+        rumputButton.setBorder(null);
         rumputButton.setBorderPainted(false);
         rumputButton.setContentAreaFilled(false);
         rumputButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rumputButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bottomm pilihan dalam shop.png"))); // NOI18N
+        rumputButton.setFocusPainted(false);
+        rumputButton.setFocusable(false);
+        rumputButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/cek2.png"))); // NOI18N
         getContentPane().add(rumputButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 490, 120));
 
         sapiStatus.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
@@ -337,27 +361,27 @@ public class v_shop extends javax.swing.JFrame {
 
         obatPrice.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         obatPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        obatPrice.setText("1000");
+        obatPrice.setText("500");
         getContentPane().add(obatPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 340, 150, 30));
 
         suntikPrice.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         suntikPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        suntikPrice.setText("1000");
+        suntikPrice.setText("1500");
         getContentPane().add(suntikPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 210, 150, 30));
 
         nutrisiPrice.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         nutrisiPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        nutrisiPrice.setText("1000");
+        nutrisiPrice.setText("550");
         getContentPane().add(nutrisiPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 150, 30));
 
         sapiPrice.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         sapiPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        sapiPrice.setText("1000");
+        sapiPrice.setText("3500");
         getContentPane().add(sapiPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 340, 150, 30));
 
         rumputPrice.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         rumputPrice.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        rumputPrice.setText("1000");
+        rumputPrice.setText("20");
         getContentPane().add(rumputPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 210, 150, 30));
 
         koinIcon1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -439,9 +463,9 @@ public class v_shop extends javax.swing.JFrame {
         homeButton.setBorderPainted(false);
         homeButton.setContentAreaFilled(false);
         homeButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        homeButton.setRequestFocusEnabled(false);
+        homeButton.setFocusPainted(false);
+        homeButton.setFocusable(false);
         homeButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/homeOver.png"))); // NOI18N
-        homeButton.setVerifyInputWhenFocusTarget(false);
         getContentPane().add(homeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 520, -1, -1));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/background shop.png"))); // NOI18N
@@ -453,6 +477,10 @@ public class v_shop extends javax.swing.JFrame {
     private void sapiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sapiButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_sapiButtonActionPerformed
+
+    private void suntikanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_suntikanButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_suntikanButtonActionPerformed
 
     /**
      * @param args the command line arguments

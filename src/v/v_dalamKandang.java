@@ -28,6 +28,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         sapi4.setActionCommand("sapi4");
         sapi5.setActionCommand("sapi5");
         sapi6.setActionCommand("sapi6");
+        tempatMakan0.setActionCommand("tempat0");
         tempatMakan1.setActionCommand("tempat1");
         tempatMakan2.setActionCommand("tempat2");
         tempatMakan3.setActionCommand("tempat3");
@@ -355,7 +356,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         laparStat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         laparStat.setText("lapar");
         getContentPane().add(laparStat);
-        laparStat.setBounds(320, 130, 70, 40);
+        laparStat.setBounds(530, 70, 70, 40);
 
         sakitStat.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         sakitStat.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -376,7 +377,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         susuBtn1.setFocusable(false);
         susuBtn1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu rollover.png"))); // NOI18N
         getContentPane().add(susuBtn1);
-        susuBtn1.setBounds(0, 220, 80, 70);
+        susuBtn1.setBounds(0, 210, 80, 80);
 
         susuBtn2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu_1.png"))); // NOI18N
         susuBtn2.setBorderPainted(false);
@@ -416,7 +417,7 @@ public class v_dalamKandang extends javax.swing.JFrame {
         susuBtn.setFocusable(false);
         susuBtn.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/susu rollover.png"))); // NOI18N
         getContentPane().add(susuBtn);
-        susuBtn.setBounds(60, 90, 80, 70);
+        susuBtn.setBounds(50, 90, 90, 70);
 
         suntikBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/button  ikon suntikan.png"))); // NOI18N
         suntikBtn.setBorderPainted(false);

@@ -25,6 +25,14 @@ public class m_aset extends m_function {
         return data;
     }
 
+    public String getPassword(String username) throws SQLException {
+        String query = "select Password from player where Username = '" + username + "'";
+        ResultSet hasil = con.getResult(query);
+        hasil.next();
+        String data = hasil.getString(1);
+        return data;
+    }
+
     public int getJumlahKoin(String username) throws SQLException {
         String query = "SELECT `JumlahKoin` FROM aset a JOIN player p on a.IdPlayer = p.IdPlayer WHERE `Username` = '" + username + "'";
         return getDataInt(query);
@@ -87,7 +95,7 @@ public class m_aset extends m_function {
 
     public boolean insertDataAsetPlayerBaru(int idAset, int idPlayer) {
         String query = "INSERT INTO `aset` (`IdAset`, `IdPlayer`, `JumlahKandang`, `JumlahKoin`, `JumlahAir`, `JumlahRumput`, `JumlahSusu`, `JumlahNutrisi`, `JumlahObat`, `JumlahSuntik`, `playTime`) VALUES ('"
-                + idAset + "', '" + idPlayer + "', '1', '2000', '10', '10', '0', '0', '0', '0', '0')";
+                + idAset + "', '" + idPlayer + "', '1', '2000', '10', '10', '0', '0', '2', '0', '0')";
         return getStatusQuery(query);
     }
 
@@ -136,4 +144,8 @@ public class m_aset extends m_function {
         return getStatusQuery(query);
     }
 
+    public boolean updatePassword(String password, String username) {
+        String query = "update player set password = '" + password + "' where username = '" + username + "'";
+        return getStatusQuery(query);
+    }
 }

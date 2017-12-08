@@ -28,12 +28,7 @@ public class c_halaman {
     private Play_musik play;
     private m_aset theMaset;
     private String username;
-    private String statusKandang;
     private boolean statusButton = true;
-    private int suntikan;
-    private int susu;
-    private int obat;
-    private int nutrisi;
     private int kandang;
     private int koin;
     private int syarat;
@@ -41,8 +36,10 @@ public class c_halaman {
     private int timeCounter = 0;
     private Random angka = new Random();
     private Thread rTime;
+    int tambah;
+    int kurang;
 
-    public c_halaman(String username) throws SQLException {
+    public c_halaman(String username) throws SQLException, Exception {
         this.theVkandang = new v_dalamKandang();
         this.theVhalaman = new v_halaman();
         this.play = new Play_musik();
@@ -64,11 +61,12 @@ public class c_halaman {
         theVhalaman.setTeksRumput(theMaset.getJumlahRumput(username));
         theVhalaman.setTeksSapi(theMaset.getJumlahSapi(username) + "");
         kandang = theMaset.getJumlahKandang(theMaset.cekIdPlayer(username));
-        susu = theMaset.getJumlahSusu(username);
 
         theVhalaman.tombolshop(new shopAction());
+
+        kandangAction kandangAction = new kandangAction();
         for (int i = 0; i < 6; i++) {
-            theVhalaman.getButtonKandang()[i].addActionListener(new kandangAction());
+            theVhalaman.getButtonKandang()[i].addActionListener(kandangAction);
         }
         for (int i = 0; i < 10; i++) {
             theVhalaman.getButtonRumput()[i].addActionListener(new rumputGratisAction());
@@ -82,6 +80,8 @@ public class c_halaman {
         theVhalaman.buttonHelp().addActionListener(new helpAction());
         theVhalaman.buttonAbout().addActionListener(new aboutAction());
         theVhalaman.buttonLogout().addActionListener(new logoutAction());
+        theVhalaman.cancelProfile().addActionListener(new cancelProfile());
+        theVhalaman.changeProfile().addActionListener(new changeProfile());
         tampilPapan(kandang);
         tampilKandang(kandang);
         syaratBeliKandang(kandang);
@@ -199,40 +199,44 @@ public class c_halaman {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (theVhalaman.tampilYesNo("Yakin beli kandang baru ?") == JOptionPane.YES_OPTION) {
-                if (koin >= hargaKandang && susu >= syarat) {
-                    if (e.getActionCommand().equalsIgnoreCase("papan1")) {
-                        theVhalaman.getButtonPapan()[0].setVisible(false);
-                        theVhalaman.getButtonPapan()[1].setVisible(true);
-                    } else if (e.getActionCommand().equalsIgnoreCase("papan2")) {
-                        theVhalaman.getButtonPapan()[1].setVisible(false);
-                        theVhalaman.getButtonPapan()[2].setVisible(true);
-                    } else if (e.getActionCommand().equalsIgnoreCase("papan3")) {
-                        theVhalaman.getButtonPapan()[2].setVisible(false);
-                        theVhalaman.getButtonPapan()[3].setVisible(true);
-                    } else if (e.getActionCommand().equalsIgnoreCase("papan4")) {
-                        theVhalaman.getButtonPapan()[3].setVisible(false);
-                        theVhalaman.getButtonPapan()[4].setVisible(true);
-                    } else if (e.getActionCommand().equalsIgnoreCase("papan5")) {
-                        for (int i = 0; i < 5; i++) {
-                            theVhalaman.getButtonPapan()[i].setVisible(false);
+                syaratBeliKandang(kandang);
+                try {
+                    if (theMaset.getJumlahKoin(username) >= hargaKandang && theMaset.getJumlahSusu(username) >= syarat) {
+                        if (e.getActionCommand().equalsIgnoreCase("papan1")) {
+                            theVhalaman.getButtonPapan()[0].setVisible(false);
+                            theVhalaman.getButtonPapan()[1].setVisible(true);
+                        } else if (e.getActionCommand().equalsIgnoreCase("papan2")) {
+                            theVhalaman.getButtonPapan()[1].setVisible(false);
+                            theVhalaman.getButtonPapan()[2].setVisible(true);
+                        } else if (e.getActionCommand().equalsIgnoreCase("papan3")) {
+                            theVhalaman.getButtonPapan()[2].setVisible(false);
+                            theVhalaman.getButtonPapan()[3].setVisible(true);
+                        } else if (e.getActionCommand().equalsIgnoreCase("papan4")) {
+                            theVhalaman.getButtonPapan()[3].setVisible(false);
+                            theVhalaman.getButtonPapan()[4].setVisible(true);
+                        } else if (e.getActionCommand().equalsIgnoreCase("papan5")) {
+                            for (int i = 0; i < 5; i++) {
+                                theVhalaman.getButtonPapan()[i].setVisible(false);
+                            }
                         }
+                        koin -= hargaKandang;
+                        kandang += 1;
+                        try {
+                            theMaset.updateDataKandang(kandang, theMaset.cekIdPlayer(username));
+                            theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
+                            theVhalaman.setTeksKoin(theMaset.getJumlahKoin(username));
+                            kandang = theMaset.getJumlahKandang(theMaset.cekIdPlayer(username));
+                        } catch (SQLException ex) {
+                            Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        tampilPapan(kandang);
+                        tampilKandang(kandang);
+                        theVhalaman.tampilPesan("Beli Kandang Berhasil");
+                    } else {
+                        theVhalaman.tampilPesan("SYARAT BELI KANDANG \n Koin yg diperlukan: " + hargaKandang + " \n Jumlah susu yg diperlukan: " + syarat);
                     }
-                    koin -= hargaKandang;
-                    kandang += 1;
-                    try {
-                        theMaset.updateDataKandang(kandang, theMaset.cekIdPlayer(username));
-                        theMaset.updateDataKoin(koin, theMaset.cekIdPlayer(username));
-                        theVhalaman.setTeksKoin(theMaset.getJumlahKoin(username));
-                        kandang = theMaset.getJumlahKandang(theMaset.cekIdPlayer(username));
-                    } catch (SQLException ex) {
-                        Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    tampilPapan(kandang);
-                    tampilKandang(kandang);
-                    syaratBeliKandang(kandang);
-                    theVhalaman.tampilPesan("Beli Kandang Berhasil");
-                } else {
-                    theVhalaman.tampilPesan("SYARAT BELI KANDANG \n Koin yg diperlukan: " + hargaKandang + " \n Jumlah susu yg diperlukan: " + syarat);
+                } catch (SQLException ex) {
+                    Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         }
@@ -289,7 +293,41 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            theVhalaman.profile().setVisible(true);
+            theVhalaman.usernmaeProfile().setText(username);
+        }
 
+    }
+
+    private class cancelProfile implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            theVhalaman.profile().dispose();
+        }
+
+    }
+
+    private class changeProfile implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                if (theVhalaman.oldPass().getText().isEmpty()) {
+                    theVhalaman.tampilPesan("Silakan masukkan password lama anda dulu !!!");
+                } else if (!theVhalaman.oldPass().getText().equalsIgnoreCase(theMaset.getPassword(username))) {
+                    theVhalaman.tampilPesan("Password lama anda salah");
+                } else if (theVhalaman.newPass().getText().isEmpty()) {
+                    theVhalaman.tampilPesan("Silakan masukkan password baru anda dulu !!!");
+                } else if (theMaset.updatePassword(theVhalaman.newPass().getText(), username)) {
+                    theVhalaman.tampilPesan("Password berhasil diganti");
+                    theVhalaman.profile().dispose();
+                } else {
+                    System.out.println("query salah");
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -306,16 +344,17 @@ public class c_halaman {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                profile.theVinventori.setTeksSuntikan(theMaset.getJumlahSuntikan(username)+"");
-                profile.theVinventori.setTeksRumput(theMaset.getJumlahRumput(username)+"");
-                profile.theVinventori.setTeksSusu(theMaset.getJumlahSusu(username)+"");
-                profile.theVinventori.setTeksObat(theMaset.getJumlahObat(username)+"");
-                profile.theVinventori.setTeksNutrisi(theMaset.getJumlahNutrisi(username)+"");
-                profile.theVinventori.setTeksKandang(theMaset.getJumlahKandang(theMaset.cekIdPlayer(username))+"");
-                profile.theVinventori.setTeksSapiBesar(theMaset.getJumlahSapi(username)+"");
+                profile.theVinventori.setTeksSuntikan(theMaset.getJumlahSuntikan(username) + "");
+                profile.theVinventori.setTeksRumput(theMaset.getJumlahRumput(username) + "");
+                profile.theVinventori.setTeksSusu(theMaset.getJumlahSusu(username) + "");
+                profile.theVinventori.setTeksObat(theMaset.getJumlahObat(username) + "");
+                profile.theVinventori.setTeksNutrisi(theMaset.getJumlahNutrisi(username) + "");
+                profile.theVinventori.setTeksKandang(theMaset.getJumlahKandang(theMaset.cekIdPlayer(username)) + "");
+                profile.theVinventori.setTeksSapiBesar(theMaset.getJumlahSapi(username) + "");
             } catch (SQLException ex) {
                 Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
             }
+            play.playInventori();
             play.StopMusik();
             theVhalaman.setVisible(false);
             profile.getview().setVisible(true);
@@ -334,6 +373,7 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            play.playHelp();
             play.StopMusik();
             theVhalaman.setVisible(false);
             help.getview().setVisible(true);
@@ -352,6 +392,7 @@ public class c_halaman {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            play.playAbout();
             play.StopMusik();
             theVhalaman.setVisible(false);
             about.getview().setVisible(true);
@@ -383,7 +424,7 @@ public class c_halaman {
         private c_aset shop;
 
         public shopAction() throws SQLException {
-            shop = new c_aset(username, theVhalaman, play);
+            shop = new c_aset(username, c_halaman.this, theVhalaman, play);
             shop.getview().setVisible(false);
         }
 
@@ -395,6 +436,8 @@ public class c_halaman {
                 shop.theVshop.setSuntikan(theMaset.getJumlahSuntikan(username));
                 shop.theVshop.setObat(theMaset.getJumlahObat(username));
                 shop.theVshop.setSusu(theMaset.getJumlahSusu(username));
+                shop.theVshop.setSapi(theMaset.getJumlahSapi(username));
+                play.playShop();
                 play.StopMusik();
                 theVhalaman.setVisible(false);
                 shop.getview().setVisible(true);
@@ -404,33 +447,111 @@ public class c_halaman {
         }
     }
 
-    private class kandangAction implements ActionListener {
+    public void setTambah(int jumlah) {
+        tambah = jumlah;
+    }
+
+    public void setKurang(int jumlah) {
+        kurang = jumlah;
+    }
+
+    public class kandangAction implements ActionListener {
+
+        c_kandang kandang[] = new c_kandang[6];
+
+        public kandangAction() throws Exception {
+            for (int i = 0; i < 6; i++) {
+                kandang[i] = new c_kandang(username, "kandang" + (i + 1), c_halaman.this, theVhalaman, play);
+                kandang[i].getview().setVisible(false);
+            }
+            updateSapi us = new updateSapi();
+            us.start();
+        }
+
+        private class updateSapi extends Thread {
+
+            @Override
+            public void run() {
+                try {
+                    while (true) {
+                        Thread.sleep(1000);
+                        System.out.println("tambah : " + tambah);
+                        System.out.println("kurang : " + kurang);
+                        for (int i = 0; i < 6; i++) {
+                            if (tambah > 0) {
+                                System.out.println(kandang[i].kandangKosong());
+                                if (kandang[i].kandangKosong() != 0) {
+                                    if (tambah > kandang[i].kandangKosong()) {
+                                        System.out.println(kandang[i].kandangKosong());
+                                        tambah = tambah - kandang[i].kandangKosong();
+                                        kandang[i].tambahSapi(kandang[i].kandangKosong());
+                                        System.out.println(tambah);
+                                        System.out.println("this");
+                                    } else {
+                                        System.out.println(tambah);
+                                        kandang[i].tambahSapi(tambah);
+                                        tambah = 0;
+                                        System.out.println(tambah);
+                                        System.out.println("else");
+                                    }
+                                }
+                            }
+                        }
+                        for (int i = 5; i >= 0; i--) {
+                            if (kurang > 0) {
+                                System.out.println(kandang[i].kandangBerisi());
+                                if (kandang[i].kandangBerisi() != 0) {
+                                    if (kurang > kandang[i].kandangBerisi()) {
+                                        System.out.println(kandang[i].kandangBerisi());
+                                        kurang = kurang - kandang[i].kandangBerisi();
+                                        kandang[i].kurangSapi(kandang[i].kandangBerisi());
+                                        System.out.println(kurang);
+                                        System.out.println("this");
+                                    } else {
+                                        System.out.println(kurang);
+                                        kandang[i].kurangSapi(kurang);
+                                        kurang = 0;
+                                        System.out.println(kurang);
+                                        System.out.println("else");
+                                    }
+                                }
+                            }
+                        }
+                        tambah = 0;
+                        System.out.println("done");
+                    }
+                } catch (Exception ex) {
+                    Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            String t = e.getActionCommand();
-            if (t.equalsIgnoreCase("kandang1")) {
-                statusKandang = "kandang1";
-            } else if (t.equalsIgnoreCase("kandang2")) {
-                statusKandang = "kandang2";
-            } else if (t.equalsIgnoreCase("kandang3")) {
-                statusKandang = "kandang3";
-            } else if (t.equalsIgnoreCase("kandang4")) {
-                statusKandang = "kandang4";
-            } else if (t.equalsIgnoreCase("kandang5")) {
-                statusKandang = "kandang5";
-            } else if (t.equalsIgnoreCase("kandang6")) {
-                statusKandang = "kandang6";
-            }
             try {
-                new c_kandang(username, statusKandang, theVhalaman, play);
-            } catch (SQLException ex) {
-                Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+                String t = e.getActionCommand();
+                for (int i = 0; i < 6; i++) {
+                    if (t.equalsIgnoreCase("kandang" + (i + 1))) {
+                        kandang[i].getview().setVisible(true);
+                        kandang[i].getView().setRumput(theMaset.getJumlahRumput(username));
+                        kandang[i].getView().setNutrisi(theMaset.getJumlahNutrisi(username));
+                        kandang[i].getView().setSuntikan(theMaset.getJumlahSuntikan(username));
+                        kandang[i].getView().setObat(theMaset.getJumlahObat(username));
+                        kandang[i].getView().setSusu(theMaset.getJumlahSusu(username));
+                        kandang[i].sapi = theMaset.getJumlahSapi(username);
+                    }
+                }
+                play.playKandang();
+                play.playSapi1();
+                play.playSapi2();
+                play.playSapi3();
+                theVhalaman.setVisible(false);
+                play.StopMusik();
             } catch (InterruptedException ex) {
                 Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(c_halaman.class.getName()).log(Level.SEVERE, null, ex);
             }
-            theVhalaman.setVisible(false);
-            play.StopMusik();
         }
 
     }
@@ -441,18 +562,18 @@ public class c_halaman {
         public void run() {
             while (true) {
                 try {
+                    theVhalaman.setTeksRumput(theMaset.getJumlahRumput(username));
+                    theVhalaman.setTeksSapi(theMaset.getJumlahSapi(username) + "");
                     Thread.sleep(1000);
-                } catch (InterruptedException ex) {
+                } catch (Exception ex) {
                     Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 timeCounter += 1;
                 int randomRumput = angka.nextInt(10);//masi ada bug
-                System.out.println(timeCounter);
-                if (timeCounter % 5 == 0) {
+                if (timeCounter % 20 == 0 && timeCounter > 0) {
                     theVhalaman.getButtonRumput()[randomRumput].setVisible(true);
-                    System.out.println("rumput muncul");
                 }
-                if (timeCounter == 60) {
+                if (timeCounter == 150) {
                     timeCounter = 0;
                     for (int i = 0; i < theVhalaman.getButtonRumput().length; i++) {
                         theVhalaman.getButtonRumput()[i].setVisible(false);

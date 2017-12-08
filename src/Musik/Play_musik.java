@@ -15,8 +15,8 @@ import javax.sound.sampled.Clip;
 
 public class Play_musik {
 
-    AudioInputStream audio , sapi1, sapi2, sapi3, pintu;
-    Clip clipKandang, clipHome, clipsapi1, clipsapi2, clipsapi3, clipPintuKeluar;
+    private AudioInputStream audio , sapi1, sapi2, sapi3, pintu, shop, inventori, help, about;
+    private Clip clipKandang, clipHome, clipsapi1, clipsapi2, clipsapi3, clipPintuKeluar, clipShop, clipInventori, clipHelp, clipAbout;
 
     public Play_musik() {
     }
@@ -40,6 +40,51 @@ public class Play_musik {
             clipHome.open(audio);
             clipHome.start();
             clipHome.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception ex) {
+            Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void playShop(){
+        try {
+            shop = AudioSystem.getAudioInputStream(new File("src//sound//shop.wav"));
+            clipShop = AudioSystem.getClip();
+            clipShop.open(shop);
+            clipShop.start();
+            clipShop.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception ex) {
+            Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void playInventori(){
+        try {
+            inventori = AudioSystem.getAudioInputStream(new File("src//sound//inventori.wav"));
+            clipInventori = AudioSystem.getClip();
+            clipInventori.open(inventori);
+            clipInventori.start();
+            clipInventori.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception ex) {
+            Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void playHelp(){
+        try {
+            help = AudioSystem.getAudioInputStream(new File("src//sound//help.wav"));
+            clipHelp = AudioSystem.getClip();
+            clipHelp.open(help);
+            clipHelp.start();
+            clipHelp.loop(Clip.LOOP_CONTINUOUSLY);
+        } catch (Exception ex) {
+            Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void playAbout(){
+        try {
+            about = AudioSystem.getAudioInputStream(new File("src//sound//about.wav"));
+            clipAbout = AudioSystem.getClip();
+            clipAbout.open(about);
+            clipAbout.start();
+            clipAbout.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (Exception ex) {
             Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,6 +136,17 @@ public class Play_musik {
             Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void playMakan(){
+//        try {
+//            makan = AudioSystem.getAudioInputStream(new File("src//sound//makan klik.wav"));
+//            clipMakan = AudioSystem.getClip();
+//            clipMakan.open(makan);
+//            clipMakan.start();
+//        } catch (Exception ex) {
+//            Logger.getLogger(c_player.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }
 
     public void StopMusik() {
         clipHome.stop();
@@ -110,6 +166,18 @@ public class Play_musik {
 
     public void stopSuara3() {
         clipsapi3.stop();
+    }
+    public void stopShop(){
+        clipShop.stop();
+    }
+    public void stopInventori(){
+        clipInventori.stop();
+    }
+    public void stopHelp(){
+        clipHelp.stop();
+    }
+    public void stopAbout(){
+        clipAbout.stop();
     }
 
 }

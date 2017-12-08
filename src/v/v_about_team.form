@@ -177,7 +177,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="DFPOP1-W9" size="24" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="ProGaMer GaMe"/>
+        <Property name="text" type="java.lang.String" value="PrograMMer GaMe"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

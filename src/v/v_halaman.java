@@ -7,8 +7,11 @@ package v;
 
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 /**
  *
@@ -22,6 +25,7 @@ public class v_halaman extends javax.swing.JFrame {
     public v_halaman() {
         initComponents();
         this.setLocationRelativeTo(this);
+        profileFrame.setLocationRelativeTo(null);
         kandang1Button.setActionCommand("kandang1");
         kandang2Button.setActionCommand("kandang2");
         kandang3Button.setActionCommand("kandang3");
@@ -50,6 +54,8 @@ public class v_halaman extends javax.swing.JFrame {
         for (int i = 0; i < 5; i++) {
             getButtonPapan()[i].setVisible(false);
         }
+        
+        
     }
 
     public void tombolshop(ActionListener action) {
@@ -136,6 +142,30 @@ public class v_halaman extends javax.swing.JFrame {
     public int tampilYesNo(String pesan) {
         return JOptionPane.showConfirmDialog(this, pesan, null, JOptionPane.YES_NO_OPTION);
     }
+    
+    public JFrame profile(){
+        return profileFrame;
+    }
+    
+    public JLabel usernmaeProfile(){
+        return usernameProfile;
+    }
+     
+    public JPasswordField oldPass(){
+        return oldpass;
+    }
+    
+    public JPasswordField newPass(){
+        return newpass;
+    }
+    
+    public JButton cancelProfile(){
+        return cancelProfile;
+    }
+    
+    public JButton changeProfile(){
+        return change;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,6 +176,14 @@ public class v_halaman extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        profileFrame = new javax.swing.JFrame();
+        newpass = new javax.swing.JPasswordField();
+        oldpass = new javax.swing.JPasswordField();
+        change = new javax.swing.JButton();
+        cancelProfile = new javax.swing.JButton();
+        username1 = new javax.swing.JLabel();
+        usernameProfile = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         koin = new javax.swing.JLabel();
         sapi = new javax.swing.JLabel();
         rumput = new javax.swing.JLabel();
@@ -193,6 +231,48 @@ public class v_halaman extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         bgHome = new javax.swing.JLabel();
+
+        profileFrame.setMinimumSize(new java.awt.Dimension(676, 341));
+        profileFrame.setUndecorated(true);
+        profileFrame.setPreferredSize(new java.awt.Dimension(676, 341));
+        profileFrame.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        newpass.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        newpass.setBorder(null);
+        newpass.setOpaque(false);
+        profileFrame.getContentPane().add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, 200, 40));
+
+        oldpass.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        oldpass.setBorder(null);
+        oldpass.setOpaque(false);
+        profileFrame.getContentPane().add(oldpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 140, 200, 40));
+
+        change.setBorderPainted(false);
+        change.setContentAreaFilled(false);
+        change.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        change.setFocusPainted(false);
+        change.setFocusable(false);
+        profileFrame.getContentPane().add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 250, 90, 40));
+
+        cancelProfile.setBorderPainted(false);
+        cancelProfile.setContentAreaFilled(false);
+        cancelProfile.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cancelProfile.setFocusPainted(false);
+        cancelProfile.setFocusable(false);
+        cancelProfile.setOpaque(false);
+        profileFrame.getContentPane().add(cancelProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, 90, 40));
+
+        username1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 24)); // NOI18N
+        username1.setText("PROFILE");
+        profileFrame.getContentPane().add(username1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 30, 100, 40));
+
+        usernameProfile.setFont(new java.awt.Font("Yu Gothic UI Semibold", 1, 18)); // NOI18N
+        usernameProfile.setText("jLabel2");
+        profileFrame.getContentPane().add(usernameProfile, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 200, 30));
+
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/s.png"))); // NOI18N
+        profileFrame.getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 340));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1280, 720));
@@ -403,7 +483,7 @@ public class v_halaman extends javax.swing.JFrame {
         shopButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         shopButton.setRequestFocusEnabled(false);
         shopButton.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/shopOver.png"))); // NOI18N
-        getContentPane().add(shopButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 220, 180));
+        getContentPane().add(shopButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, 220, 180));
 
         kandang6Button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/kandang sebelah kanan.png"))); // NOI18N
         kandang6Button.setBorderPainted(false);
@@ -500,7 +580,7 @@ public class v_halaman extends javax.swing.JFrame {
         kandang2Button.setFocusable(false);
         kandang2Button.setRequestFocusEnabled(false);
         kandang2Button.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/image/kandang sebelah kiri over.png"))); // NOI18N
-        getContentPane().add(kandang2Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 350, 240));
+        getContentPane().add(kandang2Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 260, 350, 240));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/burung.GIF"))); // NOI18N
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 540, 110, 150));
@@ -587,6 +667,8 @@ public class v_halaman extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogout;
     private javax.swing.JButton buttonMenu;
     private javax.swing.JButton buttonProfile;
+    private javax.swing.JButton cancelProfile;
+    private javax.swing.JButton change;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -598,6 +680,7 @@ public class v_halaman extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -608,11 +691,14 @@ public class v_halaman extends javax.swing.JFrame {
     private javax.swing.JButton kandang5Button;
     private javax.swing.JButton kandang6Button;
     private javax.swing.JLabel koin;
+    private javax.swing.JPasswordField newpass;
+    private javax.swing.JPasswordField oldpass;
     private javax.swing.JButton papanBeliKandang;
     private javax.swing.JButton papanBelikandang2;
     private javax.swing.JButton papanBelikandang3;
     private javax.swing.JButton papanBelikandang4;
     private javax.swing.JButton papanBelikandang5;
+    private javax.swing.JFrame profileFrame;
     private javax.swing.JLabel rumput;
     private javax.swing.JButton rumputGratis1;
     private javax.swing.JButton rumputGratis10;
@@ -627,5 +713,7 @@ public class v_halaman extends javax.swing.JFrame {
     private javax.swing.JLabel sapi;
     private javax.swing.JButton shopButton;
     private javax.swing.JLabel statusBar;
+    private javax.swing.JLabel username1;
+    private javax.swing.JLabel usernameProfile;
     // End of variables declaration//GEN-END:variables
 }
